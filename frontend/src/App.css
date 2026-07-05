@@ -57,6 +57,16 @@
     transform: translateY(0);
 }
 
+/* Muted article override — keeps the "in development" venture visually softer
+   than the two live ventures even after the reveal animation completes. */
+.reveal.in-view.imk-muted {
+    opacity: 0.72;
+}
+.reveal.in-view.imk-muted:hover {
+    opacity: 0.9;
+    transition: opacity 0.4s ease;
+}
+
 /* Hero headline treatment */
 .hero-headline {
     font-family: "Cabinet Grotesk", sans-serif;

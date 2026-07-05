@@ -215,7 +215,7 @@ export default function Ventures() {
 
                     {/* Venture 03 · In Development — subtle, no product name / no promises */}
                     <article
-                        className="reveal opacity-70"
+                        className="reveal imk-muted"
                         data-testid="venture-in-development"
                     >
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
