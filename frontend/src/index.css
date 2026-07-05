@@ -144,40 +144,10 @@ textarea.imk-input {
 }
 
 /* Logo */
-.imk-logo {
-    display: inline-flex;
-    align-items: baseline;
-    font-family: "Cabinet Grotesk", sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    color: var(--imk-text);
-    line-height: 0.9;
-    position: relative;
-}
-.imk-logo .i {
-    position: relative;
+.imk-logo-img {
     display: inline-block;
-}
-.imk-logo .i::before {
-    content: "";
-    position: absolute;
-    top: -0.42em;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0.28em;
-    height: 0.28em;
-    background: var(--imk-red);
-    border-radius: 999px;
-}
-.imk-logo .dot {
-    color: var(--imk-red);
-    display: inline-block;
-    margin-left: 0.02em;
-}
-/* dotless i via CSS trick using a span */
-.imk-logo .i-letter {
-    /* render base of i without natural dot by shifting a mask */
-    color: inherit;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* Section grid tile */
