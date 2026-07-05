@@ -47,7 +47,9 @@ export default function BuiltFromExperience() {
                     <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3">
                             <span className="card-marker" />
-                            <span className="overline">04 // Trust</span>
+                            <span className="overline">
+                                02 // Trust
+                            </span>
                         </div>
                         <h2
                             data-testid="experience-headline"

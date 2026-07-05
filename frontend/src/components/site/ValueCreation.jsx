@@ -41,13 +41,14 @@ export default function ValueCreation() {
                         <div className="flex items-center gap-3">
                             <span className="card-marker" />
                             <span className="overline">
-                                02 // How We Create Value
+                                03 // How We Create Value
                             </span>
                         </div>
                         <h2 className="font-display text-4xl lg:text-6xl font-bold text-white max-w-2xl tracking-tight">
-                            Three disciplines.
+                            From opportunity to
                             <br />
-                            One end-to-end model.
+                            intelligent solutions
+                            <span className="text-[#e60000]">.</span>
                         </h2>
                     </div>
                     <p className="max-w-md text-neutral-400 text-[15px] leading-relaxed">

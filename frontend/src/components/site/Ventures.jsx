@@ -40,7 +40,7 @@ export default function Ventures() {
                     <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3">
                             <span className="card-marker" />
-                            <span className="overline">03 // Our Ventures</span>
+                            <span className="overline">04 // Our Ventures</span>
                         </div>
                         <h2 className="font-display text-4xl lg:text-6xl font-bold text-white max-w-3xl tracking-tight">
                             Building the future,

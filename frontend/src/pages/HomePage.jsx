@@ -19,9 +19,9 @@ export default function HomePage() {
             <main>
                 <Hero />
                 <Positioning />
+                <BuiltFromExperience />
                 <ValueCreation />
                 <Ventures />
-                <BuiltFromExperience />
                 <Partnerships />
                 <Contact />
             </main>

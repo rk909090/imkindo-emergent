@@ -49,10 +49,11 @@ export default function Hero() {
                         data-testid="hero-subheadline"
                         className="mt-10 max-w-2xl text-[15px] sm:text-base lg:text-lg leading-relaxed text-neutral-400 fade-up fade-up-delay-2"
                     >
-                        Imkindo combines 25+ years of commercial experience
-                        with advanced artificial intelligence to design and
-                        build practical solutions that solve real business
-                        problems.
+                        For over 25 years we&apos;ve helped businesses create
+                        opportunities, improve customer journeys and drive
+                        commercial growth. Today, we combine that experience
+                        with artificial intelligence to build practical
+                        solutions that solve real-world challenges.
                     </p>
 
                     <div className="mt-12 flex flex-wrap items-center gap-4 fade-up fade-up-delay-3">
