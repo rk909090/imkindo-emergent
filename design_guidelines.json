@@ -1,0 +1,121 @@
+{
+  "project": "Imkindo AI Venture Studio",
+  "theme": "Dark",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) + Archetype 5 (Luxury)",
+  "aesthetic_philosophy": "Premium tech, investment firm, AI research organisation. Highly engineered, bare-metal minimalism, confident, spacious. NO robots, NO AI faces, NO generic SaaS gradients.",
+  "typography": {
+    "primary_font": "Cabinet Grotesk",
+    "secondary_font": "Manrope",
+    "mono_font": "JetBrains Mono",
+    "heading_strategy": "Use Cabinet Grotesk. Extreme tracking (tracking-tighter) for massive impact. Contrast weights drastically: use font-light for elegant philosophical statements and font-bold for bold structural headers. NEVER center-align hero text; enforce strong left-alignment.",
+    "body_strategy": "Use Manrope for extreme legibility and a slight technical edge. Loose line heights (leading-relaxed).",
+    "overline_strategy": "Use JetBrains Mono or Manrope uppercase, tracking-widest, text-xs. Use for section labels and card numbers (e.g., '01 // DISCOVER')."
+  },
+  "colors": {
+    "background": {
+      "base": "#050505",
+      "surface": "#0A0A0A",
+      "elevated": "#121212"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A3A3A3",
+      "muted": "#525252"
+    },
+    "accent": {
+      "imkindo_red": "#E60000",
+      "imkindo_red_hover": "#FF3333",
+      "red_glow": "rgba(230, 0, 0, 0.15)"
+    },
+    "border": {
+      "subtle": "rgba(255, 255, 255, 0.1)",
+      "strong": "rgba(255, 255, 255, 0.2)"
+    }
+  },
+  "layout_and_spacing": {
+    "general": "Generous Spacing Philosophy. Use py-24 or py-32 for section padding. The site must feel expansive and expensive.",
+    "grid_system": "Swiss Grid. Use border-collapse CSS or grid item borders (border-r, border-b) to expose the structural grid. No floating soft cards.",
+    "radius": "Hyper-minimal. Use rounded-none or maximum rounded-sm. No rounded-lg or rounded-xl."
+  },
+  "components": {
+    "header": {
+      "style": "Crystal Glassmorphism: backdrop-blur-xl bg-[#050505]/70. 1px bottom border of border-white/10. Sticky top-0 z-50.",
+      "brand": "'imk.' logo (lowercase) with the red dot (using text-[#E60000] for the dot)."
+    },
+    "buttons": {
+      "primary": "Solid #E60000 background, pure white text, rounded-none, px-8 py-4. Hover: scale slightly, brighten to #FF3333.",
+      "secondary": "Transparent background, 1px border border-white/20, pure white text, rounded-none. Hover: bg-white/10."
+    },
+    "inputs": {
+      "style": "Do NOT use default Shadcn boxes. Inputs must be pure HTML-style naked inputs with only a bottom border (border-b border-white/20), bg-transparent, rounded-none, px-0. On focus: border-[#E60000] and outline-none."
+    },
+    "cards": {
+      "style": "Cardless approach or flat surfaces (#0A0A0A) with 1px sharp borders. No box-shadow. Hover states should include a 1px border color shift to #E60000 or an inner glow."
+    }
+  },
+  "motion_and_interactions": {
+    "hero_background": "TSParticles instance acting as a mesh network. 99% of nodes and links are dark grey (#222222). Exactly ONE node (or a very small cluster) is pure Imkindo Red (#E60000) representing the 'intelligence point'.",
+    "scroll_reveal": "Framer Motion. Use staggered, slow upward reveals (y: 30, opacity: 0 -> 1, duration: 0.8s).",
+    "hover_effects": "Subtle and sharp. Text brightness increases, borders illuminate, no bouncy physics."
+  },
+  "media_assets": {
+    "icons": {
+      "library": "Phosphor Icons (@phosphor-icons/react)",
+      "weight": "light",
+      "usage": "Use sparingly. Arrows for CTAs (ArrowUpRight), abstract symbols for Value Creation."
+    },
+    "images": [
+      {
+        "category": "Hero / Abstract Fallback",
+        "url": "https://images.unsplash.com/photo-1696838163915-3649669f300f",
+        "description": "Dark cinematic abstract lines representing data flow. Used conditionally if TSParticles is disabled or as a subtle blend behind it."
+      },
+      {
+        "category": "Value Creation / Background Texture",
+        "url": "https://images.pexels.com/photos/14875811/pexels-photo-14875811.jpeg",
+        "description": "Dark minimalist building corner. Use as a low-opacity background blend in the 'How We Create Value' section to add architectural structure."
+      },
+      {
+        "category": "Innovation & Partnerships",
+        "url": "https://images.pexels.com/photos/18272053/pexels-photo-18272053.jpeg",
+        "description": "Intricate geometric architectural design with dramatic light/shadow. High-end, premium."
+      },
+      {
+        "category": "Contact Section",
+        "url": "https://images.unsplash.com/photo-1770992161088-7ad66282c9af",
+        "description": "Modern premium corporate office interior (dark). Use as a background for the contact form area with a heavy black overlay (bg-black/80)."
+      }
+    ]
+  },
+  "section_specifics": {
+    "hero": {
+      "content": "Headline: 'Building intelligent solutions for a changing world.' left-aligned. Red dot in 'imk.' logo. TSParticles network behind.",
+      "actions": "Buttons: 'Explore Ventures', 'Start a Conversation'."
+    },
+    "positioning": {
+      "layout": "Massive typographic statement centered or heavy left. 'Human insight. Artificial intelligence. Real-world impact.' (Highlighting 'Artificial intelligence' in italics or subtle red). Add the 25+ years experience narrative in a smaller secondary column."
+    },
+    "value_creation": {
+      "layout": "Grid of 3. Strict 1px borders forming a structural grid. 01 Discover, 02 Build, 03 Scale."
+    },
+    "ventures": {
+      "layout": "Two distinct asymmetric blocks showcasing NowAgentAI™ and NowMoveMe™. Include specific external link arrows. Avoid software mockups; use typography and geometric shapes to represent them."
+    },
+    "partnerships": {
+      "layout": "Sleek, image-backed section using the Innovation image. Emphasize scale and institutional trust."
+    },
+    "contact": {
+      "layout": "2-column. Left: 'Start a Conversation' with deep padding. Right: Stacked form fields (Name, Company, Position, Email, Phone, Country, Message) and 2 Shadcn Selects (Interested In, Organisation Type) stripped of default styling to match the bare-metal input look."
+    },
+    "footer": {
+      "layout": "Massive py-20. Bottom border layout. Copyright © Imkindo Ltd, and trademarked venture names."
+    }
+  },
+  "testing_requirements": {
+    "data_testid": "ALL interactive elements (buttons, links, form inputs, dropdowns) MUST include a data-testid attribute. Format: kebab-case, role-based. Example: data-testid='hero-explore-ventures-button', data-testid='contact-name-input'."
+  },
+  "tech_stack_overrides": {
+    "components": "Use raw HTML/Tailwind for structural and marketing sections to ensure total freedom of layout. ONLY use Shadcn for complex logic (Select dropdowns).",
+    "file_type": "Ensure all implementations are written in .js/.jsx, not .tsx."
+  }
+}
