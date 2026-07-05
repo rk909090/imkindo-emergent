@@ -1,34 +1,134 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
-
-.App-header {
-    background-color: #0f0f10;
+/* App-level overrides */
+.App {
+    background: var(--imk-bg);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    color: var(--imk-text);
 }
 
-.App-link {
-    color: #61dafb;
+/* Hero canvas backdrop */
+.hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.9;
 }
 
-@keyframes App-logo-spin {
+/* Fade in on load */
+@keyframes fade-up {
     from {
-        transform: rotate(0deg);
+        opacity: 0;
+        transform: translateY(24px);
     }
     to {
-        transform: rotate(360deg);
+        opacity: 1;
+        transform: translateY(0);
     }
+}
+.fade-up {
+    animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.fade-up-delay-1 {
+    animation-delay: 0.15s;
+}
+.fade-up-delay-2 {
+    animation-delay: 0.3s;
+}
+.fade-up-delay-3 {
+    animation-delay: 0.45s;
+}
+.fade-up-delay-4 {
+    animation-delay: 0.6s;
+}
+
+/* Reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero headline treatment */
+.hero-headline {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+}
+.hero-headline em {
+    font-style: normal;
+    color: var(--imk-text-secondary);
+    font-weight: 300;
+}
+
+/* Big statement style */
+.statement {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+}
+.statement strong {
+    font-weight: 800;
+    color: var(--imk-text);
+}
+.statement .accent {
+    color: var(--imk-red);
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* Header nav link */
+.nav-link {
+    position: relative;
+    color: var(--imk-text-secondary);
+    font-family: "Manrope", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+.nav-link:hover {
+    color: var(--imk-text);
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 0;
+    background: var(--imk-red);
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Venture block */
+.venture-index {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    color: var(--imk-text-muted);
+}
+
+/* Cursor small marker */
+.card-marker {
+    width: 6px;
+    height: 6px;
+    background: var(--imk-red);
+    border-radius: 999px;
+    display: inline-block;
+    box-shadow: 0 0 12px var(--imk-red);
 }
