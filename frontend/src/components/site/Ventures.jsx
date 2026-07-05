@@ -75,29 +75,52 @@ export default function Ventures() {
                         </div>
 
                         {/* horizontal branch */}
-                        <div className="grid grid-cols-2 gap-6 sm:gap-16 lg:gap-32 relative w-full max-w-3xl">
-                            <div className="absolute top-0 left-1/4 right-1/4 h-px bg-white/15" />
+                        <div className="grid grid-cols-3 gap-4 sm:gap-12 lg:gap-24 relative w-full max-w-4xl">
+                            <div className="absolute top-0 left-[16%] right-[16%] h-px bg-white/15" />
                             {[
                                 {
                                     name: "NowAgentAI",
                                     role: "Customer AI",
+                                    live: true,
                                 },
                                 {
                                     name: "NowMoveMe",
                                     role: "Property AI",
+                                    live: true,
+                                },
+                                {
+                                    name: "Venture 03",
+                                    role: "In Development",
+                                    live: false,
                                 },
                             ].map((v) => (
                                 <div
                                     key={v.name}
-                                    className="flex flex-col items-center relative pt-8"
+                                    className={`flex flex-col items-center relative pt-8 ${
+                                        v.live ? "" : "opacity-45"
+                                    }`}
                                 >
-                                    <span className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-8 bg-white/15" />
-                                    <span className="absolute top-8 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#e60000]" />
-                                    <div className="font-display text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight mt-2">
+                                    <span
+                                        className={`absolute top-0 left-1/2 -translate-x-1/2 w-px h-8 ${
+                                            v.live
+                                                ? "bg-white/15"
+                                                : "bg-white/10 border-l border-dashed border-white/20"
+                                        }`}
+                                    />
+                                    <span
+                                        className={`absolute top-8 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full ${
+                                            v.live
+                                                ? "bg-[#e60000]"
+                                                : "bg-transparent border border-neutral-500"
+                                        }`}
+                                    />
+                                    <div className="font-display text-base sm:text-xl lg:text-2xl font-bold text-white tracking-tight mt-2">
                                         {v.name}
-                                        <span className="text-[#e60000] text-xs align-super ml-0.5">
-                                            ™
-                                        </span>
+                                        {v.live && (
+                                            <span className="text-[#e60000] text-xs align-super ml-0.5">
+                                                ™
+                                            </span>
+                                        )}
                                     </div>
                                     <div className="mt-1 text-neutral-500 text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em]">
                                         {v.role}
@@ -189,6 +212,53 @@ export default function Ventures() {
                             </div>
                         </article>
                     ))}
+
+                    {/* Venture 03 · In Development — subtle, no product name / no promises */}
+                    <article
+                        className="reveal opacity-70"
+                        data-testid="venture-in-development"
+                    >
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                            <div className="lg:col-span-5">
+                                <PlaceholderGlyph />
+                            </div>
+
+                            <div className="lg:col-span-7">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <span className="venture-index">V/03</span>
+                                    <span className="h-px flex-1 bg-white/10" />
+                                </div>
+
+                                <h3 className="font-display text-5xl lg:text-7xl font-bold text-neutral-500 tracking-tight leading-none">
+                                    Venture 03
+                                </h3>
+                                <div className="mt-3 overline text-neutral-500">
+                                    In Development
+                                </div>
+
+                                <p className="mt-6 text-neutral-300 text-lg lg:text-xl font-light max-w-xl leading-snug">
+                                    Exploring new applied intelligence
+                                    opportunities where human experience and
+                                    AI can solve meaningful business
+                                    challenges.
+                                </p>
+
+                                <div className="mt-8 flex flex-wrap gap-2">
+                                    {["Enterprise", "Industry Solutions", "Applied AI"].map(
+                                        (t) => (
+                                            <span
+                                                key={t}
+                                                className="venture-tag opacity-80"
+                                                data-testid={`venture-tag-in-development-${t.toLowerCase().replace(/\s+/g, "-")}`}
+                                            >
+                                                {t}
+                                            </span>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -304,6 +374,75 @@ function VentureGlyph({ accent }) {
             </svg>
             <div className="absolute bottom-4 left-4 overline">
                 Intent · Lifestyle · Match
+            </div>
+        </div>
+    );
+}
+
+function PlaceholderGlyph() {
+    // Muted, exploratory — sparse dots suggesting possibilities being mapped
+    return (
+        <div
+            className="relative aspect-[4/3] w-full bg-[#080808] border border-dashed border-white/10 overflow-hidden"
+            aria-hidden="true"
+        >
+            <svg
+                viewBox="0 0 400 300"
+                className="absolute inset-0 w-full h-full"
+            >
+                {/* faint scan grid */}
+                {Array.from({ length: 6 }).map((_, i) => (
+                    <line
+                        key={`h${i}`}
+                        x1="0"
+                        y1={30 + i * 45}
+                        x2="400"
+                        y2={30 + i * 45}
+                        stroke="rgba(255,255,255,0.04)"
+                    />
+                ))}
+                {Array.from({ length: 9 }).map((_, i) => (
+                    <line
+                        key={`v${i}`}
+                        x1={30 + i * 45}
+                        y1="0"
+                        x2={30 + i * 45}
+                        y2="300"
+                        stroke="rgba(255,255,255,0.04)"
+                    />
+                ))}
+                {/* scattered exploratory dots */}
+                {[
+                    [80, 90],
+                    [140, 210],
+                    [230, 70],
+                    [290, 180],
+                    [340, 120],
+                    [180, 150],
+                ].map(([x, y], i) => (
+                    <circle
+                        key={i}
+                        cx={x}
+                        cy={y}
+                        r="2.5"
+                        fill="rgba(180,180,180,0.5)"
+                    />
+                ))}
+                {/* single red seed dot — the "opportunity being explored" */}
+                <circle cx="215" cy="150" r="4" fill="#e60000" opacity="0.55" />
+                <circle
+                    cx="215"
+                    cy="150"
+                    r="14"
+                    fill="none"
+                    stroke="#e60000"
+                    strokeWidth="1"
+                    strokeDasharray="2 4"
+                    opacity="0.5"
+                />
+            </svg>
+            <div className="absolute bottom-4 left-4 overline text-neutral-500">
+                Exploring · Applied AI
             </div>
         </div>
     );
