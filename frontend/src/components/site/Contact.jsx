@@ -113,11 +113,11 @@ export default function Contact() {
                                 k="Direct"
                                 v={
                                     <a
-                                        href="mailto:mark@imkindo.com"
+                                        href="mailto:connect@imkindo.com"
                                         className="text-white hover:text-[#e60000] transition-colors"
                                         data-testid="contact-email-link"
                                     >
-                                        mark@imkindo.com
+                                        connect@imkindo.com
                                     </a>
                                 }
                             />

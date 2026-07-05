@@ -48,11 +48,11 @@ export default function Footer() {
                     <div className="lg:col-span-4">
                         <div className="overline mb-4">Contact</div>
                         <a
-                            href="mailto:mark@imkindo.com"
+                            href="mailto:connect@imkindo.com"
                             className="text-white hover:text-[#e60000] transition-colors text-sm block"
                             data-testid="footer-email-link"
                         >
-                            mark@imkindo.com
+                            connect@imkindo.com
                         </a>
                         <a
                             href="https://imkindo.com"
