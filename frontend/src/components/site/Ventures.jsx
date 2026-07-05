@@ -6,9 +6,9 @@ const VENTURES = [
         num: "V/01",
         name: "NowAgentAI",
         trademark: "™",
-        tagline: "AI-powered customer engagement.",
-        body: "Recover missed opportunities. Reconnect with customers. Turn conversations into revenue.",
-        tags: ["AI Voice", "SMS", "Lead Recovery", "Follow-up Automation"],
+        tagline: "AI-powered customer engagement designed to ensure valuable opportunities are never lost because conversations stopped.",
+        body: "Customer conversations, lead recovery and intelligent follow-up — turning connection into revenue.",
+        tags: ["Customer Conversations", "Lead Recovery", "Intelligent Follow-up", "Revenue Opportunities"],
         cta: "Visit NowAgentAI",
         href: "https://www.nowagentai.com",
         accent: "top",
@@ -18,9 +18,9 @@ const VENTURES = [
         num: "V/02",
         name: "NowMoveMe",
         trademark: "™",
-        tagline: "The future of intelligent property discovery.",
-        body: "Helping people make better property decisions through understanding, not endless searching.",
-        tags: ["AI Property Search", "Customer Intent", "Intelligent Matching", "Trusted Guidance"],
+        tagline: "Intelligent property discovery designed to help people move with confidence by understanding what really matters.",
+        body: "Better decisions through AI-powered matching — confidence, not endless searching.",
+        tags: ["Better Decisions", "Customer Intent", "AI-powered Matching", "Confidence"],
         cta: "Visit NowMoveMe",
         href: "https://www.nowmoveme.co.uk/uk",
         accent: "bottom",
@@ -49,9 +49,9 @@ export default function Ventures() {
                         </h2>
                     </div>
                     <p className="max-w-md text-neutral-400 text-[15px] leading-relaxed">
-                        Two applied intelligence ventures, each engineered to
-                        create tangible impact in industries with real
-                        commercial gravity.
+                        Imkindo identifies opportunities, creates AI-powered
+                        ventures and builds solutions around real commercial
+                        challenges. These are our current live ventures.
                     </p>
                 </div>
 
@@ -61,12 +61,12 @@ export default function Ventures() {
                     className="mb-24 lg:mb-28 border border-white/10 bg-[#0a0a0a] px-6 sm:px-10 py-10 lg:py-14 reveal"
                 >
                     <div className="flex flex-col items-center text-center">
-                        <span className="overline mb-3">Parent Company</span>
+                        <span className="overline mb-3">Applied Intelligence</span>
                         <div className="font-display text-3xl lg:text-5xl font-bold text-white tracking-tight leading-none">
                             IMKINDO<span className="text-[#e60000]">.</span>
                         </div>
                         <div className="mt-2 text-neutral-500 text-xs lg:text-sm font-mono uppercase tracking-[0.24em]">
-                            Applied Intelligence Company
+                            Identifies · Creates · Builds
                         </div>
 
                         {/* vertical connector */}
@@ -104,6 +104,17 @@ export default function Ventures() {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+
+                        {/* Caption — current ventures + room for more */}
+                        <div className="mt-10 flex items-center gap-4 text-neutral-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.22em]">
+                            <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+                            <span data-testid="ventures-caption">
+                                Current ventures powered by Imkindo
+                            </span>
+                            <span className="text-[#e60000]">+</span>
+                            <span className="text-neutral-600">more to follow</span>
+                            <span className="h-px w-8 bg-white/15" aria-hidden="true" />
                         </div>
                     </div>
                 </div>
