@@ -5,6 +5,7 @@ import {
     Globe2,
     FlaskConical,
     Target,
+    Sparkles,
 } from "lucide-react";
 
 const PILLARS = [
@@ -25,13 +26,18 @@ const PILLARS = [
     },
     {
         icon: FlaskConical,
-        title: "AI tested in real commercial environments",
+        title: "AI solutions tested in real commercial environments",
         body: "Ventures built and validated with live customers, not in a lab.",
     },
     {
         icon: Target,
         title: "Technology designed around business outcomes",
         body: "Every system is measured by revenue, retention and conversion.",
+    },
+    {
+        icon: Sparkles,
+        title: "Human insight enhanced by AI",
+        body: "Combining decades of commercial understanding with artificial intelligence to create smarter, faster and more effective solutions.",
     },
 ];
 
