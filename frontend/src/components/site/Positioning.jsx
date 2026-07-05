@@ -22,20 +22,24 @@ export default function Positioning() {
                         <br />
                         <span className="accent">Artificial intelligence.</span>
                         <br />
-                        <strong>Real-world impact.</strong>
+                        <strong>Commercial impact.</strong>
                     </h2>
 
                     <div className="lg:col-span-4 lg:pt-6 space-y-6 reveal">
                         <p className="text-neutral-400 leading-relaxed text-base lg:text-[17px]">
                             Technology alone does not create transformation.
-                            Understanding people, industries and opportunities
+                            Understanding people, markets and opportunities
                             does.
                         </p>
                         <p className="text-neutral-400 leading-relaxed text-base lg:text-[17px]">
-                            With over 25 years of experience in customer
-                            acquisition, marketing, sales and business growth,
-                            Imkindo bridges the gap between business challenges
-                            and intelligent AI solutions.
+                            <span className="text-white">
+                                Before artificial intelligence, there was
+                                human intelligence.
+                            </span>{" "}
+                            For over two decades we have helped businesses
+                            attract customers, create opportunities and
+                            improve conversion. AI now allows us to build the
+                            intelligent systems we always imagined.
                         </p>
                         <p className="text-white leading-relaxed text-base lg:text-[17px] pt-2">
                             We don&apos;t build AI because it is possible.

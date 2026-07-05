@@ -91,7 +91,7 @@ export default function Contact() {
                     <div className="lg:col-span-5 space-y-8">
                         <div className="flex items-center gap-3 reveal">
                             <span className="card-marker" />
-                            <span className="overline">05 // Contact</span>
+                            <span className="overline">06 // Contact</span>
                         </div>
                         <h2
                             data-testid="contact-headline"

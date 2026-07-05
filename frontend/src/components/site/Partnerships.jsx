@@ -39,7 +39,7 @@ export default function Partnerships() {
                 <div className="flex items-center gap-3 mb-12 reveal">
                     <span className="card-marker" />
                     <span className="overline">
-                        04 // AI Innovation & Partnerships
+                        05 // AI Innovation & Partnerships
                     </span>
                 </div>
 
@@ -63,9 +63,9 @@ export default function Partnerships() {
                         </p>
                         <p className="text-neutral-400 leading-relaxed text-[15px]">
                             Imkindo collaborates with forward-thinking
-                            businesses, investors and strategic partners
-                            looking to explore, design and develop intelligent
-                            solutions.
+                            businesses, innovators and strategic partners to
+                            identify opportunities where artificial
+                            intelligence can solve meaningful challenges.
                         </p>
                         <a
                             href="#contact"

@@ -36,24 +36,23 @@ export default function Hero() {
 
                     <h1
                         data-testid="hero-headline"
-                        className="hero-headline text-white text-[42px] sm:text-6xl lg:text-[92px] xl:text-[108px] fade-up fade-up-delay-1"
+                        className="hero-headline text-white text-[42px] sm:text-6xl lg:text-[86px] xl:text-[100px] fade-up fade-up-delay-1"
                     >
-                        Building intelligent
+                        Where decades of
                         <br />
-                        solutions for a
+                        human insight meet
                         <br />
-                        <em>changing world.</em>
+                        <em>artificial intelligence.</em>
                     </h1>
 
                     <p
                         data-testid="hero-subheadline"
                         className="mt-10 max-w-2xl text-[15px] sm:text-base lg:text-lg leading-relaxed text-neutral-400 fade-up fade-up-delay-2"
                     >
-                        Artificial intelligence is transforming industries.
-                        Imkindo combines decades of commercial experience with
-                        emerging AI technology to identify opportunities,
-                        design intelligent solutions and build platforms
-                        engineered for real-world impact.
+                        Imkindo combines 25+ years of commercial experience
+                        with advanced artificial intelligence to design and
+                        build practical solutions that solve real business
+                        problems.
                     </p>
 
                     <div className="mt-12 flex flex-wrap items-center gap-4 fade-up fade-up-delay-3">
@@ -84,8 +83,7 @@ export default function Hero() {
                                 years
                             </span>
                             <span className="text-xs text-neutral-500 leading-relaxed">
-                                Customer acquisition, growth and commercial
-                                strategy.
+                                Marketing, customer acquisition, sales & growth.
                             </span>
                         </div>
                         <div className="hidden sm:flex flex-col gap-2 max-w-[260px]">
@@ -98,12 +96,12 @@ export default function Hero() {
                             </span>
                         </div>
                         <div className="hidden lg:flex flex-col gap-2 max-w-[260px]">
-                            <span className="overline">Focus</span>
+                            <span className="overline">Outcome</span>
                             <span className="font-display text-3xl lg:text-4xl text-white">
-                                Applied
+                                Commercial
                             </span>
                             <span className="text-xs text-neutral-500 leading-relaxed">
-                                Intelligence — designed for measurable value.
+                                Impact — AI applied where it creates value.
                             </span>
                         </div>
                     </div>

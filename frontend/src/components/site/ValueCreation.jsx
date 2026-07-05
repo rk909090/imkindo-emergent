@@ -12,13 +12,13 @@ const ITEMS = [
         num: "02",
         title: "Build",
         icon: Hammer,
-        body: "We design and develop AI-powered platforms, intelligent workflows and applied research prototypes.",
+        body: "We design and develop AI-powered platforms, automation systems and intelligent workflows.",
     },
     {
         num: "03",
         title: "Scale",
         icon: Rocket,
-        body: "We work with operators, partners and investors to bring innovation to market and grow it responsibly.",
+        body: "We work with partners, businesses and investors to turn innovation into commercial growth.",
     },
 ];
 

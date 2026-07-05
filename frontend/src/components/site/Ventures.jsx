@@ -6,23 +6,25 @@ const VENTURES = [
         num: "V/01",
         name: "NowAgentAI",
         trademark: "™",
-        tagline: "Intelligent customer engagement powered by AI.",
-        body: "Helping businesses respond faster, reconnect with customers and unlock opportunities hidden inside existing data.",
-        tags: ["AI Voice", "Automation", "Concierge", "Conversion"],
+        tagline: "AI-powered customer engagement.",
+        body: "Recover missed opportunities. Reconnect with customers. Turn conversations into revenue.",
+        tags: ["AI Voice", "SMS", "Lead Recovery", "Follow-up Automation"],
         cta: "Visit NowAgentAI",
         href: "https://www.nowagentai.com",
         accent: "top",
+        role: "Customer AI",
     },
     {
         num: "V/02",
         name: "NowMoveMe",
         trademark: "™",
         tagline: "The future of intelligent property discovery.",
-        body: "Moving beyond traditional search by using AI to understand intent, lifestyle and individual needs — helping people find the right opportunities faster.",
-        tags: ["AI Search", "Property Intelligence", "Personalisation"],
+        body: "Helping people make better property decisions through understanding, not endless searching.",
+        tags: ["AI Property Search", "Customer Intent", "Intelligent Matching", "Trusted Guidance"],
         cta: "Visit NowMoveMe",
         href: "https://www.nowmoveme.co.uk/uk",
         accent: "bottom",
+        role: "Property AI",
     },
 ];
 
@@ -34,7 +36,7 @@ export default function Ventures() {
             className="relative border-t border-white/10 py-24 lg:py-40"
         >
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-                <div className="flex items-end justify-between flex-wrap gap-6 mb-20 reveal">
+                <div className="flex items-end justify-between flex-wrap gap-6 mb-16 reveal">
                     <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3">
                             <span className="card-marker" />
@@ -51,6 +53,59 @@ export default function Ventures() {
                         create tangible impact in industries with real
                         commercial gravity.
                     </p>
+                </div>
+
+                {/* Parent company structure diagram */}
+                <div
+                    data-testid="ventures-structure"
+                    className="mb-24 lg:mb-28 border border-white/10 bg-[#0a0a0a] px-6 sm:px-10 py-10 lg:py-14 reveal"
+                >
+                    <div className="flex flex-col items-center text-center">
+                        <span className="overline mb-3">Parent Company</span>
+                        <div className="font-display text-3xl lg:text-5xl font-bold text-white tracking-tight leading-none">
+                            IMKINDO<span className="text-[#e60000]">.</span>
+                        </div>
+                        <div className="mt-2 text-neutral-500 text-xs lg:text-sm font-mono uppercase tracking-[0.24em]">
+                            Applied Intelligence Company
+                        </div>
+
+                        {/* vertical connector */}
+                        <div className="my-8 h-10 w-px bg-white/15 relative">
+                            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#e60000]" />
+                        </div>
+
+                        {/* horizontal branch */}
+                        <div className="grid grid-cols-2 gap-6 sm:gap-16 lg:gap-32 relative w-full max-w-3xl">
+                            <div className="absolute top-0 left-1/4 right-1/4 h-px bg-white/15" />
+                            {[
+                                {
+                                    name: "NowAgentAI",
+                                    role: "Customer AI",
+                                },
+                                {
+                                    name: "NowMoveMe",
+                                    role: "Property AI",
+                                },
+                            ].map((v) => (
+                                <div
+                                    key={v.name}
+                                    className="flex flex-col items-center relative pt-8"
+                                >
+                                    <span className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-8 bg-white/15" />
+                                    <span className="absolute top-8 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#e60000]" />
+                                    <div className="font-display text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight mt-2">
+                                        {v.name}
+                                        <span className="text-[#e60000] text-xs align-super ml-0.5">
+                                            ™
+                                        </span>
+                                    </div>
+                                    <div className="mt-1 text-neutral-500 text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em]">
+                                        {v.role}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
 
                 <div className="space-y-24 lg:space-y-32">
@@ -79,6 +134,9 @@ export default function Ventures() {
                                             {v.trademark}
                                         </span>
                                     </h3>
+                                    <div className="mt-3 overline">
+                                        {v.role}
+                                    </div>
 
                                     <p className="mt-6 text-white text-lg lg:text-xl font-light max-w-xl leading-snug">
                                         {v.tagline}
