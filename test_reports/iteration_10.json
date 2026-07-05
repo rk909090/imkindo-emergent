@@ -1,0 +1,22 @@
+{
+  "summary": "Iteration 10 (backend classification + FE no-regression) — 15/15 pytest PASS and full end-to-end UI smoke PASS. Backend correctly persists `potential_venture_opportunity: true` for interested_in in {'Bespoke AI Project', 'Strategic Partnership'} and `false` for all other categories (NowAgentAI Partnership, NowMoveMe Partnership / Investment, Investing in Imkindo / AI Ventures, AI Implementation for my Business, Media / Other). Flag is included on POST response and PERSISTED — verified by GET /api/enquiries returning the exact IDs with correct booleans. Validation regressions intact: missing required fields → 422; invalid email → 422; empty message → 422. List endpoint still sorted by submitted_at desc. Frontend regression sanity: homepage loads, contact form fills, Strategic Partnership option selectable via existing testid `enquiry-interested-select-option-strategic-partnership`, submission returns success block with EXACT standard copy 'Thank you for contacting Imkindo' — zero mention of 'venture', 'opportunity flagging', 'classification', 'potential' or the internal field name in DOM (checked full page HTML). Zero console errors. Confirmed the actual UI-submitted 'Playwright Regression / Strategic Partnership' record has potential_venture_opportunity=true when re-fetched via GET /api/enquiries.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Classification helper `_is_venture_opportunity` handles None safely via `(interested_in or '').strip()` and set-membership — good defensive style.",
+    "Set VENTURE_OPPORTUNITY_INTERESTS is exact-match against the frontend-provided strings; if the frontend option labels ever change (e.g. renaming 'Strategic Partnership' to 'Strategic Partnerships'), the flag would silently become false. Consider deriving the FE dropdown from a shared source or adding a lightweight assertion/log when interested_in is not in the union of known categories to catch drift early.",
+    "GET /api/enquiries currently returns all enquiries (up to limit=500) with the full body including the internal flag. This is fine while the endpoint is unauthenticated in a preview environment, but flagging enquiries as 'venture opportunity' is competitively sensitive — before production, this endpoint should be gated behind auth or the flag should be projected out for public consumers.",
+    "No index on `submitted_at` in MongoDB — sort will scan; low volume today but worth adding as data grows."
+  ],
+  "updated_files": ["/app/backend/tests/backend_test.py"],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% (smoke)"},
+  "seed_data_creation": "Multiple TEST_-prefixed enquiries and one 'Playwright Regression' enquiry persisted in the `enquiries` collection during automated testing. All safe to delete if a cleanup pass is desired.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 10 is an internal-only backend classification. The Enquiry Pydantic model has field `potential_venture_opportunity: bool = False`; VENTURE_OPPORTUNITY_INTERESTS set = {'Bespoke AI Project', 'Strategic Partnership'}; helper `_is_venture_opportunity()`; POST /api/enquiries handler passes the computed flag. Frontend has NO new UI elements — success block copy unchanged. All 7 interested_in options confirmed and mapped in tests (parametrized). Pytest file at /app/backend/tests/backend_test.py extended with class TestVentureOpportunityFlag (parametrized true/false cases + a create+GET persistence check). Iteration 9 frontend polish (venture-in-development article, ventures-caption, structure diagram third slot) all still intact."
+}

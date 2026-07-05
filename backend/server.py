@@ -71,7 +71,21 @@ class Enquiry(BaseModel):
     interested_in: str
     organisation_type: str
     message: str
+    # Internal classification — flags enquiries that may align with future Imkindo ventures.
+    # Not exposed in the UI. Used for reporting / opportunity tracking only.
+    potential_venture_opportunity: bool = False
     submitted_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+# Interest categories that suggest an alignment with an in-development Imkindo venture.
+VENTURE_OPPORTUNITY_INTERESTS = {
+    "Bespoke AI Project",
+    "Strategic Partnership",
+}
+
+
+def _is_venture_opportunity(interested_in: str) -> bool:
+    return (interested_in or "").strip() in VENTURE_OPPORTUNITY_INTERESTS
 
 
 # ---------- Routes ----------
@@ -100,7 +114,10 @@ async def get_status_checks():
 
 @api_router.post("/enquiries", response_model=Enquiry, status_code=201)
 async def create_enquiry(payload: EnquiryCreate):
-    enquiry = Enquiry(**payload.model_dump())
+    enquiry = Enquiry(
+        **payload.model_dump(),
+        potential_venture_opportunity=_is_venture_opportunity(payload.interested_in),
+    )
     doc = enquiry.model_dump()
     doc['submitted_at'] = doc['submitted_at'].isoformat()
     try:
