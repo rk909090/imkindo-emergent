@@ -70,6 +70,46 @@
     font-weight: 300;
 }
 
+/* Above-the-fold fit for laptop viewports (short screens).
+   When viewport height is limited (typical 17"/15" laptops at 768–920px tall),
+   compact the hero so the stats row stays above the fold. */
+@media (max-height: 920px) {
+    [data-testid="hero-section"] {
+        padding-top: 88px !important;
+        padding-bottom: 32px !important;
+    }
+    [data-testid="hero-headline"] {
+        font-size: clamp(48px, 5.2vw, 68px) !important;
+    }
+    [data-testid="hero-section"] .fade-up { margin-bottom: 16px !important; }
+    [data-testid="hero-subheadline"] {
+        margin-top: 18px !important;
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+    }
+    [data-testid="hero-section"] .fade-up-delay-3 { margin-top: 22px !important; }
+    [data-testid="hero-section"] .fade-up-delay-4 {
+        margin-top: 28px !important;
+    }
+    [data-testid="hero-section"] .fade-up-delay-4 .font-display {
+        font-size: 26px !important;
+    }
+}
+@media (max-height: 800px) {
+    [data-testid="hero-section"] {
+        padding-top: 80px !important;
+        padding-bottom: 20px !important;
+    }
+    [data-testid="hero-headline"] {
+        font-size: clamp(42px, 4.6vw, 58px) !important;
+    }
+    [data-testid="hero-subheadline"] {
+        margin-top: 14px !important;
+    }
+    [data-testid="hero-section"] .fade-up-delay-3 { margin-top: 18px !important; }
+    [data-testid="hero-section"] .fade-up-delay-4 { margin-top: 22px !important; }
+}
+
 /* Big statement style */
 .statement {
     font-family: "Cabinet Grotesk", sans-serif;

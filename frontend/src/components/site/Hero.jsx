@@ -13,7 +13,7 @@ export default function Hero() {
         <section
             id="top"
             data-testid="hero-section"
-            className="relative min-h-[100svh] flex items-end overflow-hidden pt-32 pb-20 lg:pb-28"
+            className="relative min-h-[100svh] flex items-end overflow-hidden pt-24 lg:pt-20 2xl:pt-28 pb-8 lg:pb-8 2xl:pb-14"
         >
             <NetworkCanvas />
             {/* Vignette overlay */}
@@ -27,7 +27,7 @@ export default function Hero() {
 
             <div className="relative z-[2] w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                 <div className="max-w-5xl">
-                    <div className="flex items-center gap-3 mb-10 fade-up">
+                    <div className="flex items-center gap-3 mb-6 lg:mb-4 2xl:mb-6 fade-up">
                         <span className="red-pulse" aria-hidden="true" />
                         <span className="overline">
                             Imkindo // Applied Intelligence
@@ -36,7 +36,7 @@ export default function Hero() {
 
                     <h1
                         data-testid="hero-headline"
-                        className="hero-headline text-white text-[42px] sm:text-6xl lg:text-[86px] xl:text-[100px] fade-up fade-up-delay-1"
+                        className="hero-headline text-white text-[42px] sm:text-6xl lg:text-[64px] xl:text-[68px] 2xl:text-[92px] fade-up fade-up-delay-1"
                     >
                         Where decades of
                         <br />
@@ -47,7 +47,7 @@ export default function Hero() {
 
                     <p
                         data-testid="hero-subheadline"
-                        className="mt-10 max-w-2xl text-[15px] sm:text-base lg:text-lg leading-relaxed text-neutral-400 fade-up fade-up-delay-2"
+                        className="mt-5 lg:mt-5 2xl:mt-8 max-w-2xl text-[15px] sm:text-base lg:text-[15px] 2xl:text-lg leading-relaxed text-neutral-400 fade-up fade-up-delay-2"
                     >
                         For over 25 years we&apos;ve helped businesses create
                         opportunities, improve customer journeys and drive
@@ -56,7 +56,7 @@ export default function Hero() {
                         solutions that solve real-world challenges.
                     </p>
 
-                    <div className="mt-12 flex flex-wrap items-center gap-4 fade-up fade-up-delay-3">
+                    <div className="mt-6 lg:mt-6 2xl:mt-10 flex flex-wrap items-center gap-4 fade-up fade-up-delay-3">
                         <a
                             href="#ventures"
                             onClick={scrollTo("#ventures")}
@@ -76,7 +76,7 @@ export default function Hero() {
                         </a>
                     </div>
 
-                    <div className="mt-20 lg:mt-28 flex items-end justify-between gap-6 fade-up fade-up-delay-4">
+                    <div className="mt-8 lg:mt-8 2xl:mt-14 flex items-end justify-between gap-6 fade-up fade-up-delay-4">
                         <div className="flex flex-col gap-2 max-w-[260px]">
                             <span className="overline">Est. Experience</span>
                             <span className="font-display text-3xl lg:text-4xl text-white">
