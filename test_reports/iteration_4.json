@@ -1,0 +1,40 @@
+{
+  "summary": "Regression sanity check triggered by user concern that 'much of the first website draft has disappeared' after iteration-3 copy refinement. Independently verified all 14 items on the live preview (https://venture-studio-demo.preview.emergentagent.com). RESULT: 14/14 PASS. Every section from the original first draft is still rendered and populated with real content. Page height is 8075px, zero console errors. User was almost certainly viewing a stale browser cache or the old www.imkindo.com production site.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verification_per_item": {
+    "1_header_logo_and_nav": "PASS - imk-logo present as <IMG>, visible. All 4 nav links (About, Ventures, Partnerships, Contact) visible.",
+    "2_header_cta": "PASS - 'Start a Conversation' button visible on desktop.",
+    "3_hero_section": "PASS - hero-section present with animated canvas, 'IMKINDO // APPLIED INTELLIGENCE' overline, big headline 'Where decades of human insight meet artificial intelligence.', sub-headline paragraph, both buttons (hero-explore-ventures-button + hero-start-conversation-button), and all 3 stats: '25+ years / EST. EXPERIENCE', '02 / VENTURES LIVE', 'Commercial / OUTCOME'.",
+    "4_positioning_section": "PASS - '01 // POSITIONING' overline, three-line statement (Human insight / Artificial intelligence / Commercial impact), and narrative including 'We build AI where it creates value.'",
+    "5_value_creation_section": "PASS - '02 // HOW WE CREATE VALUE' overline, and all 3 cards visible: value-card-discover (01), value-card-build (02), value-card-scale (03).",
+    "6_ventures_section": "PASS - '03 // OUR VENTURES' overline, ventures-structure diagram present with IMKINDO / APPLIED INTELLIGENCE COMPANY / NowAgentAI / CUSTOMER AI / NowMoveMe / PROPERTY AI.",
+    "7_nowagentai_block": "PASS - SVG glyph present, tagline 'AI-powered customer engagement.', body copy present, tags AI VOICE / SMS / LEAD RECOVERY / FOLLOW-UP AUTOMATION (uppercase), CTA venture-nowagentai-cta -> href=https://www.nowagentai.com target=_blank.",
+    "8_nowmoveme_block": "PASS - SVG glyph, tagline 'The future of intelligent property discovery.', body copy, tags AI PROPERTY SEARCH / CUSTOMER INTENT / INTELLIGENT MATCHING / TRUSTED GUIDANCE (uppercase), CTA venture-nowmoveme-cta -> href=https://www.nowmoveme.co.uk/uk target=_blank.",
+    "9_built_from_experience_section": "PASS - '04 // TRUST' overline, headline 'Built from experience.' (split across two lines in DOM), and all 5 pillar cards (experience-pillar-0 through experience-pillar-4) visible with content: 25+ years digital marketing / Customer acquisition expertise / International business experience / AI tested in real commercial environments / Technology designed around business outcomes.",
+    "10_partnerships_section": "PASS - '05 // AI INNOVATION & PARTNERSHIPS' overline, headline 'Have an opportunity where AI could create value?' (multi-line), right-column narrative, partnerships-cta-button visible, and 4-column grid at bottom: INVESTORS (VC / Family Office / Private), ENTERPRISE (SME / Corporate / Group), INDUSTRIES (Property / Hospitality / Travel), TECHNOLOGY (AI Voice / Data / Platforms).",
+    "11_contact_section": "PASS - '06 // CONTACT' overline, headline 'Start a Conversation.', left-column meta with DIRECT (mark@imkindo.com), VENTURES (NowAgentAI / NowMoveMe), RESPONSE (Personal - where value fits). Full enquiry form present with all 9 fields via testids: enquiry-name-input, enquiry-company-input, enquiry-position-input, enquiry-email-input, enquiry-phone-input, enquiry-country-input, enquiry-interested-select, enquiry-orgtype-select, enquiry-message-input, plus enquiry-submit-button. Form was NOT submitted per instructions.",
+    "12_footer": "PASS - site-footer contains imk. logo (as image in header uses same asset), 'Applied Intelligence' tagline, VENTURES list with links to NowAgentAI + NowMoveMe, CONTACT block with mailto:mark@imkindo.com, and copyright '© 2026 Imkindo Ltd. All rights reserved.'",
+    "13_page_height": "PASS - document.body.scrollHeight = 8075px (well over 6000px threshold). Full content is present, build is not truncated.",
+    "14_console_errors": "PASS - Zero console errors and zero page errors during load and idle."
+  },
+  "test_report_links": [],
+  "action_items": [
+    "No code changes needed. Reassure the user that all sections from the original first draft remain in the live preview. If they are still seeing a reduced version, they are almost certainly looking at (a) a cached copy of an older build - ask them to hard-refresh (Cmd/Ctrl+Shift+R) or open in an incognito window, or (b) the old production site www.imkindo.com rather than the preview URL https://venture-studio-demo.preview.emergentagent.com."
+  ],
+  "critical_code_review_comments": [
+    "HomePage.jsx composes Header, Hero, Positioning, ValueCreation, Ventures, BuiltFromExperience, Partnerships, Contact, Footer in the exact expected order. Clean and unchanged.",
+    "All required data-testid attributes are present on interactive and section-level elements - excellent testability."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (not tested per request)", "frontend": "100% (14/14 regression items pass)" },
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 4 was a lightweight regression sanity check on the live preview. All 11 sections + page height + console = clean. Note tag/label text is rendered in UPPERCASE (e.g., 'AI VOICE', 'DIRECT', 'INVESTORS', 'VENTURES' in footer). Section headlines like 'Built from experience.' and 'Have an opportunity where AI could create value?' are split across visual lines but the text still exists as a single string in the DOM. Interested-in field testid is 'enquiry-interested-select' (not 'interested-in-select').",
+  "rca of the issue": "USER CONCERN was NOT reproducible. The live preview contains every section from the first draft with real content (page height 8075px, 0 console errors). Root cause of user perception: almost certainly a stale browser cache from an earlier iteration, or the user comparing against the current production site (www.imkindo.com) instead of the preview URL. Mitigation: instruct user to hard-refresh the preview URL or view in an incognito window."
+}
