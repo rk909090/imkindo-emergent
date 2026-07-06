@@ -80,50 +80,53 @@
     font-weight: 300;
 }
 
-/* Above-the-fold fit only for truly small viewports (mobile / tiny laptops).
-   The design's intended spacious hero is the default; only shrink for very
-   short screens so nothing overflows catastrophically. */
-@media (max-height: 720px) {
+/* Above-the-fold fit for laptop viewports (short screens).
+   When viewport height is limited (typical 17"/15" laptops at 768–920px tall),
+   compact the hero so the stats row stays above the fold. */
+@media (max-height: 920px) {
     [data-testid="hero-section"] {
         padding-top: 88px !important;
-        padding-bottom: 24px !important;
+        padding-bottom: 32px !important;
     }
     [data-testid="hero-headline"] {
-        font-size: clamp(42px, 4.8vw, 62px) !important;
+        font-size: clamp(48px, 5.2vw, 68px) !important;
     }
-    [data-testid="hero-section"] .fade-up { margin-bottom: 14px !important; }
+    [data-testid="hero-section"] .fade-up { margin-bottom: 16px !important; }
+    [data-testid="hero-subheadline"] {
+        margin-top: 18px !important;
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+    }
+    [data-testid="hero-section"] .fade-up-delay-3 { margin-top: 22px !important; }
+    [data-testid="hero-section"] .fade-up-delay-4 {
+        margin-top: 28px !important;
+    }
+    [data-testid="hero-section"] .fade-up-delay-4 .font-display {
+        font-size: 26px !important;
+    }
+}
+@media (max-height: 800px) {
+    [data-testid="hero-section"] {
+        padding-top: 80px !important;
+        padding-bottom: 20px !important;
+    }
+    [data-testid="hero-headline"] {
+        font-size: clamp(42px, 4.6vw, 58px) !important;
+    }
     [data-testid="hero-subheadline"] {
         margin-top: 14px !important;
-        font-size: 15px !important;
-        line-height: 1.5 !important;
     }
     [data-testid="hero-section"] .fade-up-delay-3 { margin-top: 18px !important; }
-    [data-testid="hero-section"] .fade-up-delay-4 { margin-top: 24px !important; }
-    [data-testid="hero-section"] .fade-up-delay-4 .font-display {
-        font-size: 24px !important;
-    }
+    [data-testid="hero-section"] .fade-up-delay-4 { margin-top: 22px !important; }
 }
 
-/* Spacious desktop hero — the intended reference design.
-   Applies to any viewport tall enough (>= 800px) so laptops render the
-   large-scale layout: big overline offset, huge headline, generous gap
-   before the stats row. Stats may sit slightly lower on shorter viewports
-   but the aesthetic matches the design reference across all devices. */
-@media (min-height: 800px) {
-    [data-testid="hero-section"] {
-        align-items: flex-start !important;
-        padding-top: 180px !important;
-        padding-bottom: 40px !important;
-    }
-    [data-testid="hero-headline"] {
-        font-size: clamp(64px, 6.4vw, 96px) !important;
-    }
-    [data-testid="hero-section"] .fade-up-delay-4 {
-        margin-top: 112px !important;
-    }
-}
+/* Desktop-only hero rebalance (viewports ≥ 1000px tall).
+   Reduces the empty gap between the sticky nav and the overline,
+   and adds more breathing room between the CTA row and the stats row.
+   Laptop viewports keep the compact rules above. */
 @media (min-height: 1000px) {
     [data-testid="hero-section"] {
+        align-items: flex-start !important;
         padding-top: 196px !important;
         padding-bottom: 40px !important;
     }
