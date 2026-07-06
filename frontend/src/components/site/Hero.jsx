@@ -16,9 +16,10 @@ export default function Hero() {
             className="relative min-h-[100svh] flex items-end overflow-hidden pt-24 lg:pt-20 2xl:pt-28 pb-8 lg:pb-8 2xl:pb-14"
         >
             <NetworkCanvas />
-            {/* Vignette overlay */}
+            {/* Vignette overlay (dark mode only) */}
             <div
-                className="absolute inset-0 z-[1] pointer-events-none"
+                className="hero-vignette absolute inset-0 z-[1] pointer-events-none"
+                aria-hidden="true"
                 style={{
                     background:
                         "radial-gradient(80% 60% at 50% 40%, transparent 0%, rgba(5,5,5,0.65) 70%, #050505 100%)",

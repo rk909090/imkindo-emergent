@@ -1,0 +1,43 @@
+{
+  "summary": "Iteration 14 (light-mode hero vignette fix) verified end-to-end. The dark radial vignette is fully hidden in LIGHT mode (getComputedStyle(.hero-vignette).display === 'none'), hero section bg reads as clean #fafafa (rgb(250,250,250)). DARK mode unchanged — .hero-vignette display === 'block', dark radial gradient visible, body bg rgb(5,5,5). Red intelligence node renders on canvas in both themes (r=255,g=32 pixel detected at ~(888,372) light and ~(1188,452) dark). Hero text colours in LIGHT are dark: headline rgb(10,10,10), subheadline rgb(82,82,82), overlines EST.EXPERIENCE/VENTURES LIVE/OUTCOME rgb(64,64,64). No console errors on either theme. Contact form empty-submit still shows sonner toast with rgb(255,255,255) bg + rgb(10,10,10) text. All 8 sections render. Screenshots confirm dark blob is GONE in light hero and dark hero looks identical to before.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_hero_light": {
+    "html_class": "light",
+    "hero_vignette_display": "none",
+    "hero_section_bg": "rgb(250, 250, 250)",
+    "body_bg": "rgb(250, 250, 250)",
+    "canvas_present": true,
+    "canvas_size": "1440x900",
+    "red_node_pixel_detected": {"x": 888, "y": 372, "r": 255, "g": 32},
+    "headline_color": "rgb(10, 10, 10)",
+    "subheadline_color": "rgb(82, 82, 82)",
+    "overlines_color": "rgb(64, 64, 64)",
+    "empty_submit_toast": {"text": "Please complete the required fields.", "bg": "rgb(255, 255, 255)", "color": "rgb(10, 10, 10)"}
+  },
+  "verified_hero_dark_regression": {
+    "html_class": "dark",
+    "hero_vignette_display": "block",
+    "body_bg": "rgb(5, 5, 5)",
+    "red_node_pixel_detected": {"x": 1188, "y": 452, "r": 255, "g": 32}
+  },
+  "sections_regression_light": ["hero-section","positioning-section","built-from-experience-section","value-creation-section","ventures-section","partnerships-section","contact-section","site-footer"],
+  "console_errors_both_themes": 0,
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/iter13_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is minimal and correct: html.light .hero-vignette { display:none } cleanly disables the dark-mode vignette in light mode. html.light [data-testid=hero-section] { background:#fafafa } gives the hero its own light bg override so it doesn't fall through to the (transparent) default.",
+    "NetworkCanvas correctly reads themeRef for node/link colour softening in light mode without teardown — verified via active red-node pixel and animation working in both themes.",
+    "Iteration 13's cosmetic 'faint tracked labels' nit is now moot — hero overlines render at rgb(64,64,64) which is legible against #fafafa. No further action needed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100% — all 10 acceptance criteria pass"},
+  "seed_data_creation": "None (contact form was not submitted with valid data this iteration).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 14 verified light-mode hero fix. Use CDP Emulation.setDeviceMetricsOverride for viewport. Force theme via window.localStorage.setItem('imk-theme','light'|'dark') then page.reload(). ThemeProvider reads localStorage on mount and applies html class. hero-vignette element uses className 'hero-vignette' + inline style radial-gradient. Fix location: /app/frontend/src/index.css lines 448-453. Both themes verified to have zero console errors and functional canvas with red intelligence node."
+}

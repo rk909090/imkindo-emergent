@@ -443,15 +443,13 @@ html.light .font-mono {
     color: #404040;
 }
 
-/* Hero radial spotlight blends awkwardly in light — swap to a subtle
-   top-left→bottom-right neutral warm gradient that stays premium. */
-html.light section[data-testid="hero-section"] > div[aria-hidden="true"] {
-    background: radial-gradient(
-        80% 60% at 50% 40%,
-        transparent 0%,
-        rgba(250, 250, 250, 0.45) 70%,
-        #fafafa 100%
-    ) !important;
+/* Hero radial spotlight is designed for dark mode. In light mode, kill
+   the vignette entirely so the hero reads as a clean white canvas. */
+html.light .hero-vignette {
+    display: none !important;
+}
+html.light [data-testid="hero-section"] {
+    background: #fafafa !important;
 }
 
 html.light .card-marker {
