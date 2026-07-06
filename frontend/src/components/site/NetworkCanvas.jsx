@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useTheme } from "@/theme/ThemeContext";
 
 /**
  * Lightweight canvas network animation.
@@ -8,6 +9,11 @@ import React, { useEffect, useRef } from "react";
 export default function NetworkCanvas() {
     const canvasRef = useRef(null);
     const rafRef = useRef(null);
+    const { theme } = useTheme();
+    const themeRef = useRef(theme);
+    useEffect(() => {
+        themeRef.current = theme;
+    }, [theme]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -79,7 +85,9 @@ export default function NetworkCanvas() {
                     const d2 = dx * dx + dy * dy;
                     if (d2 < LINK_DIST * LINK_DIST) {
                         const a = 1 - Math.sqrt(d2) / LINK_DIST;
-                        ctx.strokeStyle = `rgba(255,255,255,${a * 0.08})`;
+                        const linkAlpha = themeRef.current === "light" ? a * 0.14 : a * 0.08;
+                        const linkColor = themeRef.current === "light" ? "0,0,0" : "255,255,255";
+                        ctx.strokeStyle = `rgba(${linkColor},${linkAlpha})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(n.x, n.y);
@@ -88,7 +96,10 @@ export default function NetworkCanvas() {
                     }
                 }
 
-                ctx.fillStyle = "rgba(200,200,200,0.55)";
+                ctx.fillStyle =
+                    themeRef.current === "light"
+                        ? "rgba(60,60,60,0.55)"
+                        : "rgba(200,200,200,0.55)";
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
                 ctx.fill();

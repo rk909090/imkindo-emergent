@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "@/components/site/Logo";
+import ThemeToggle from "@/components/site/ThemeToggle";
 import { Menu, X } from "lucide-react";
 
 const NAV = [
@@ -60,7 +61,8 @@ export default function Header() {
                     ))}
                 </nav>
 
-                <div className="hidden md:flex">
+                <div className="hidden md:flex items-center gap-3">
+                    <ThemeToggle />
                     <a
                         href="#contact"
                         onClick={(e) => jump(e, "#contact")}
@@ -71,15 +73,18 @@ export default function Header() {
                     </a>
                 </div>
 
-                <button
-                    type="button"
-                    className="md:hidden text-white p-2 -mr-2"
-                    onClick={() => setOpen((v) => !v)}
-                    aria-label="Toggle menu"
-                    data-testid="mobile-menu-toggle"
-                >
-                    {open ? <X size={22} /> : <Menu size={22} />}
-                </button>
+                <div className="md:hidden flex items-center gap-2">
+                    <ThemeToggle />
+                    <button
+                        type="button"
+                        className="text-white p-2 -mr-2"
+                        onClick={() => setOpen((v) => !v)}
+                        aria-label="Toggle menu"
+                        data-testid="mobile-menu-toggle"
+                    >
+                        {open ? <X size={22} /> : <Menu size={22} />}
+                    </button>
+                </div>
             </div>
 
             {open && (

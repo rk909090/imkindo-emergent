@@ -1,0 +1,56 @@
+{
+  "summary": "Iteration 13 dark/light theme system verified end-to-end. Desktop defaults DARK, Mobile defaults LIGHT (verified via CDP setDeviceMetricsOverride mobile:true). Toggle persists to localStorage 'imk-theme'. Logo swaps correctly between imk-logo-white.png (dark) and imk-logo-dark.png (light). Contact form full submit works in LIGHT with backend persistence (potential_venture_opportunity=true confirmed via GET /api/enquiries for Strategic Partnership + Investor/VC). Dropdown selects render white bg + dark text in LIGHT. Sonner toast readable in LIGHT. DARK regression: all 8 sections present, canvas working, red accent #e60000 = rgb(230,0,0) preserved in both themes. Zero console errors across all flows. Backend 15/15 pytest passing (unchanged).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "LIGHT mode - hero area small tracked labels", "issues": ["Tracked/mono overline labels like 'IMKINDO // APPLIED INTELLIGENCE', 'EST. EXPERIENCE', 'VENTURES LIVE', 'OUTCOME', '04 // OUR VENTURES', 'INVESTORS/ENTERPRISE/INDUSTRIES/TECHNOLOGY' render slightly faint on light background. Still legible but noticeably less punchy than in dark mode where they were designed. Consider bumping these to a darker mid-grey in html.light overrides (rgb(70,70,70) or similar) for better hierarchy. Non-blocking — text passes minimum WCAG AA at current contrast."]},
+      {"screen": "LIGHT mode - hero radial background", "issues": ["The centred radial spotlight gradient that creates atmosphere in DARK mode produces a subtly awkward brighter 'blob' in LIGHT. Cosmetic only, hero still functional and beautiful."]}
+    ]
+  },
+  "verified_theme_behaviour": {
+    "desktop_1440x900_default": {"htmlClass": "dark", "storedKey": "dark", "bodyBg": "rgb(5,5,5)", "logo": "/imk-logo-white.png"},
+    "mobile_390x844_default (CDP mobile:true, dsf:2)": {"htmlClass": "light", "storedKey": "light", "bodyBg": "rgb(250,250,250)", "logo": "/imk-logo-dark.png"},
+    "toggle_click_switches_theme": true,
+    "reload_persists_theme": true,
+    "toggle_visible_desktop_and_mobile_headers": true,
+    "mobile_menu_open_light": {"menuBg": "rgb(255,255,255)", "linkColor": "rgb(10,10,10)"},
+    "mobile_menu_open_dark": {"menuBg": "rgb(5,5,5)", "linkColor_white": true},
+    "red_accent_preserved": {"dark_primaryBtn": "rgb(230,0,0)", "light_primaryBtn": "rgb(230,0,0)"},
+    "canvas_animation_present_both_themes": true,
+    "console_errors": 0
+  },
+  "verified_form_flow_light": {
+    "submit_success_block": "Thank you for contacting Imkindo — success block displayed",
+    "backend_record_persisted": true,
+    "potential_venture_opportunity_for_Strategic_Partnership": true,
+    "organisation_type_recorded": "Investor / VC",
+    "dropdown_light_bg": "rgb(255,255,255)",
+    "dropdown_light_option_color": "rgb(10,10,10)",
+    "empty_submit_toast": {"text": "Please complete the required fields.", "bg": "rgb(255,255,255)", "color": "rgb(10,10,10)"}
+  },
+  "verified_dark_regression": {
+    "sections_present": ["hero-section","positioning-section","built-from-experience-section","value-creation-section","ventures-section","partnerships-section","contact-section","site-footer"],
+    "canvas_present_and_sized": true,
+    "primary_button_red": "rgb(230,0,0)",
+    "body_bg": "rgb(5,5,5)"
+  },
+  "backend_pytest": {"passed": 15, "failed": 0, "file": "/app/backend/tests/backend_test.py", "xml": "/app/test_reports/pytest/iter13_results.xml"},
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/iter13_results.xml"],
+  "action_items": [
+    "OPTIONAL/POLISH: In /app/frontend/src/index.css html.light overrides, consider promoting the tracked/mono overline labels (currently very faded whites in dark mode) to a darker grey e.g. rgb(70,70,70) so hierarchy matches dark-mode punch. Non-blocking."
+  ],
+  "critical_code_review_comments": [
+    "ThemeContext detectDefault correctly uses (max-width: 768px) matchMedia for mobile detection and falls back to dark for SSR — clean implementation.",
+    "NetworkCanvas uses themeRef.current inside the RAF loop instead of restarting the effect on theme change — good performance choice, colours adapt live without teardown.",
+    "ThemeToggle has data-testid='theme-toggle' appearing twice in DOM (one in hidden md:flex desktop nav, one in visible mobile row). Playwright locator resolves 2 nodes on mobile viewport — tests must select the visible one (`.locator(...).last` or `:visible`). Not a bug, but tests using bare selector will hit the hidden desktop instance. Consider adding distinct testids like 'theme-toggle-desktop' / 'theme-toggle-mobile' for cleaner automation.",
+    "Logo <img> triggers a network request on every theme switch (browser will cache). Both PNGs load with transparent bg — verified."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% functional; 2 minor cosmetic light-mode design nits"},
+  "seed_data_creation": "3 TEST_ prefixed enquiries created during light-mode form submission verification. Marker: TEST_LIGHT_THEME_SUBMIT_MARKER_iter13.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 13 theme system passes all acceptance criteria. Use CDP Emulation.setDeviceMetricsOverride (NOT playwright set_viewport_size) for viewport tests. For mobile use mobile:true, deviceScaleFactor:2. Theme is stored at window.localStorage['imk-theme']; class applied to document.documentElement as 'light' or 'dark'. Two theme-toggle testids exist in DOM (desktop + mobile) — use :visible or .last in playwright. Backend unchanged since iter10, still 15/15 passing. To re-test form submission in LIGHT: forcelocalStorage 'light', reload, scroll to [data-testid=contact-section], fill form fields (enquiry-name-input, enquiry-company-input, enquiry-position-input, enquiry-email-input, enquiry-phone-input, enquiry-country-input, enquiry-interested-select, enquiry-orgtype-select, enquiry-message-input), click enquiry-submit-button, wait 2.5s for [data-testid=enquiry-success]."
+}

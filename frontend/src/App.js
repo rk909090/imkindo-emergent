@@ -3,6 +3,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import HomePage from "@/pages/HomePage";
+import { ThemeProvider } from "@/theme/ThemeContext";
 
 function useScrollReveal() {
     useEffect(() => {
@@ -31,23 +32,25 @@ function Shell() {
 function App() {
     return (
         <div className="App">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Shell />} />
-                </Routes>
-            </BrowserRouter>
-            <Toaster
-                theme="dark"
-                position="bottom-right"
-                toastOptions={{
-                    style: {
-                        background: "#0a0a0a",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        color: "#ffffff",
-                        borderRadius: 0,
-                    },
-                }}
-            />
+            <ThemeProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Shell />} />
+                    </Routes>
+                </BrowserRouter>
+                <Toaster
+                    theme="dark"
+                    position="bottom-right"
+                    toastOptions={{
+                        style: {
+                            background: "#0a0a0a",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                            color: "#ffffff",
+                            borderRadius: 0,
+                        },
+                    }}
+                />
+            </ThemeProvider>
         </div>
     );
 }

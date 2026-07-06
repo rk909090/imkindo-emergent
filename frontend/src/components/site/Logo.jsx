@@ -1,19 +1,20 @@
 import React from "react";
+import { useTheme } from "@/theme/ThemeContext";
 
 /**
- * imk. wordmark — uses the real Imkindo logo asset (transparent PNG,
- * white letters + red dots) processed from the client-supplied file.
+ * imk. wordmark — uses white-letter logo for dark theme,
+ * dark-letter logo for light theme. Both have transparent backgrounds.
  */
 export default function Logo({ size = 32, className = "" }) {
-    // size represents the target rendered height in px
-    const height = size;
+    const { theme } = useTheme();
+    const src = theme === "light" ? "/imk-logo-dark.png" : "/imk-logo-white.png";
     return (
         <img
-            src="/imk-logo-white.png"
+            src={src}
             alt="imk."
             data-testid="imk-logo"
             className={`imk-logo-img ${className}`}
-            style={{ height: `${height}px`, width: "auto" }}
+            style={{ height: `${size}px`, width: "auto" }}
             draggable={false}
         />
     );
