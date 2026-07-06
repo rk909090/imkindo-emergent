@@ -1,0 +1,29 @@
+{
+  "summary": "Iteration 11 CSS-only spacing polish verified via CDP viewport emulation at 1920x1080, 2560x1440, 1440x900, 1366x768. All target measurements match main agent's expected values exactly. No regressions on other sections, no console errors, empty enquiry form still triggers sonner toast.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "measurements": {
+    "desktop_1920x1080": {"gap_nav_to_overline": 124, "gap_cta_to_stats": 128, "stats_bottom": 979, "above_fold": true},
+    "desktop_2560x1440": {"gap_nav_to_overline": 124, "gap_cta_to_stats": 128, "stats_bottom": 979, "above_fold": true},
+    "laptop_1440x900":   {"gap_nav_to_overline": 248, "gap_cta_to_stats": 28,  "stats_bottom": 852, "above_fold": true, "note": "laptop rules preserved, desktop rule not leaked"},
+    "laptop_1366x768":   {"gap_nav_to_overline": 168, "gap_cta_to_stats": 22,  "stats_bottom": 732, "above_fold": true, "note": "laptop rules preserved"}
+  },
+  "regression_checks": {
+    "sections_present": ["site-header","hero-section","positioning-section","built-from-experience-section","value-creation-section","ventures-section","partnerships-section","contact-section","site-footer"],
+    "console_errors": 0,
+    "empty_enquiry_toast": "Please complete the required fields. (sonner toast rendered)"
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only test)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 11 verified. Key selector note: hero overline is the FIRST .fade-up in .max-w-5xl (has NO fade-up-delay-N class). Headline is .fade-up.fade-up-delay-1. Use CDP Emulation.setDeviceMetricsOverride for viewport tests — page.set_viewport_size does not resize window in this env."
+}

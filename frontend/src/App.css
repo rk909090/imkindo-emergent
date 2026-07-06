@@ -120,6 +120,21 @@
     [data-testid="hero-section"] .fade-up-delay-4 { margin-top: 22px !important; }
 }
 
+/* Desktop-only hero rebalance (viewports ≥ 1000px tall).
+   Reduces the empty gap between the sticky nav and the overline,
+   and adds more breathing room between the CTA row and the stats row.
+   Laptop viewports keep the compact rules above. */
+@media (min-height: 1000px) {
+    [data-testid="hero-section"] {
+        align-items: flex-start !important;
+        padding-top: 196px !important;
+        padding-bottom: 40px !important;
+    }
+    [data-testid="hero-section"] .fade-up-delay-4 {
+        margin-top: 128px !important;
+    }
+}
+
 /* Big statement style */
 .statement {
     font-family: "Cabinet Grotesk", sans-serif;
