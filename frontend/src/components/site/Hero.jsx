@@ -77,7 +77,7 @@ export default function Hero() {
                         </a>
                     </div>
 
-                    <div className="mt-8 lg:mt-8 2xl:mt-14 flex items-end justify-between gap-6 fade-up fade-up-delay-4">
+                    <div className="mt-8 lg:mt-8 2xl:mt-14 flex items-start justify-between gap-6 fade-up fade-up-delay-4">
                         <div className="flex flex-col gap-2 max-w-[260px]">
                             <span className="overline">Est. Experience</span>
                             <span className="font-display text-3xl lg:text-4xl text-white">
