@@ -25,6 +25,7 @@ export default function NetworkCanvas() {
         let h = 0;
         let nodes = [];
         let redNode = null;
+        let redNodeBounds = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
         let mouse = { x: -9999, y: -9999 };
         const LINK_DIST = 140;
 
@@ -48,12 +49,21 @@ export default function NetworkCanvas() {
             }));
 
             redNode = {
-                x: w * 0.62,
+                x: w * 0.78,
                 y: h * 0.42,
                 vx: rand(-0.05, 0.05),
                 vy: rand(-0.05, 0.05),
                 r: 3.2,
                 phase: 0,
+            };
+            // Bounds for the red intelligence node — keep it on the RIGHT
+            // side of the hero so it never overlaps the headline / body copy
+            // sitting in the left column.
+            redNodeBounds = {
+                xMin: w * 0.58,
+                xMax: w * 0.92,
+                yMin: h * 0.15,
+                yMax: h * 0.78,
             };
         };
 
@@ -109,8 +119,20 @@ export default function NetworkCanvas() {
             if (redNode) {
                 redNode.x += redNode.vx;
                 redNode.y += redNode.vy;
-                if (redNode.x < 40 || redNode.x > w - 40) redNode.vx *= -1;
-                if (redNode.y < 40 || redNode.y > h - 40) redNode.vy *= -1;
+                if (redNode.x < redNodeBounds.xMin || redNode.x > redNodeBounds.xMax) {
+                    redNode.vx *= -1;
+                    redNode.x = Math.min(
+                        Math.max(redNode.x, redNodeBounds.xMin),
+                        redNodeBounds.xMax
+                    );
+                }
+                if (redNode.y < redNodeBounds.yMin || redNode.y > redNodeBounds.yMax) {
+                    redNode.vy *= -1;
+                    redNode.y = Math.min(
+                        Math.max(redNode.y, redNodeBounds.yMin),
+                        redNodeBounds.yMax
+                    );
+                }
 
                 const distances = nodes
                     .map((n, idx) => {
