@@ -1,0 +1,34 @@
+{
+  "summary": "Iteration 15 - Cosmetic fix verification for venture glyph SVGs in light mode. All 9 test cases from the review request passed. The three venture glyphs (NowAgentAI concentric arcs + vertical grid, NowMoveMe property tile grid + red journey path, Venture 03 scan grid + scattered dots) now render visibly on the white light-mode canvas with dark-grey strokes/fills, while dark mode remains pixel-identical to before with the original rgba(255,255,255,...) subtle strokes. The red intelligence nodes/highlights (#e60000) are preserved in both themes. Class `venture-glyph-svg` is applied to exactly 3 <svg> elements.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_assertions": [
+    "document.querySelectorAll('.venture-glyph-svg').length === 3 -> PASS",
+    "html.className === 'light' after localStorage set + reload -> PASS",
+    "NowAgentAI: 6 concentric circles + 5 vertical grid lines computed stroke = rgba(0, 0, 0, 0.18) (was rgba(255,255,255,0.08)/0.06) -> PASS",
+    "NowMoveMe: 48 property-tile rects computed stroke = rgba(0, 0, 0, 0.18); highlighted rect stroke = rgb(230, 0, 0) preserved -> PASS",
+    "Venture 03: 15 scan-grid lines computed stroke = rgba(0, 0, 0, 0.18); 6 scattered dots computed fill = rgba(60, 60, 60, 0.5); red seed circle fill = rgb(230, 0, 0) preserved -> PASS",
+    "Dark mode: html.className === 'dark' and NowAgentAI circle stroke reverts to rgba(255, 255, 255, 0.08) (unchanged) -> PASS",
+    "Red intelligence node fill = rgb(230, 0, 0) in both themes -> PASS",
+    "No console errors in either theme (only React devtools info + unrelated Canvas2D willReadFrequently warning from third-party badge) -> PASS",
+    "Contact form present in light mode (smoke check) -> PASS"
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is well-scoped: className added to the 3 <svg> elements and CSS overrides use attribute-prefix selectors (stroke^='rgba(255,255,255', fill^='rgba(180,180,180', fill^='rgba(230,0,0,0.12') gated under `html.light`, so dark mode is untouched.",
+    "Minor: CSS uses `stroke^=\"rgba(255,255,255\"` (no space) which correctly matches JSX values written without a trailing space after the comma. Consistent with the JSX. No fix needed.",
+    "Consider extracting the venture glyph SVGs into a `theme-aware` React component using CSS custom properties (--glyph-stroke) instead of attribute-selector overrides, so future colour tweaks are DRY. Non-blocking."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100% (9/9 checks)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Venture glyph light-mode fix verified end-to-end. If future iterations touch VentureGlyph/PlaceholderGlyph in /app/frontend/src/components/site/Ventures.jsx or the `html.light .venture-glyph-svg` block in /app/frontend/src/index.css, re-run: (a) count .venture-glyph-svg === 3, (b) computed stroke of first circle in each SVG under light theme is rgba(0, 0, 0, 0.18), (c) dark theme stroke reverts to rgba(255, 255, 255, 0.08). Toggle theme via localStorage.setItem('imk-theme', 'light'|'dark') + reload.",
+  "rca of the issue": "Root cause was hardcoded rgba(255,255,255,...) strokes/fills in the SVG shapes which were invisible on the white light-mode canvas. Fix pattern: add a stable class `venture-glyph-svg` and use CSS attribute-prefix selectors under `html.light` to remap the whites to rgba(0,0,0,0.18) and the grey scattered dots to rgba(60,60,60,0.5). Verified: computed styles now correctly reflect the override in light mode and the original values in dark mode."
+}

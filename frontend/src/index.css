@@ -507,6 +507,22 @@ html.light section[data-testid="partnerships-section"] > div[aria-hidden="true"]
     ) !important;
 }
 
+/* Venture glyph SVGs use hardcoded rgba(255,255,255,...) for the sketch
+   lines. In light mode, override these to a dark grey so the graphics
+   remain visible on the white canvas. */
+html.light .venture-glyph-svg [stroke^="rgba(255,255,255"] {
+    stroke: rgba(0, 0, 0, 0.18) !important;
+}
+html.light .venture-glyph-svg [fill^="rgba(255,255,255"] {
+    fill: rgba(0, 0, 0, 0.18) !important;
+}
+html.light .venture-glyph-svg [fill^="rgba(180,180,180"] {
+    fill: rgba(60, 60, 60, 0.5) !important;
+}
+html.light .venture-glyph-svg [fill^="rgba(230,0,0,0.12"] {
+    fill: rgba(230, 0, 0, 0.08) !important;
+}
+
 /* Mobile menu toggle icon colour */
 html.light [data-testid="mobile-menu-toggle"] {
     color: #0a0a0a !important;

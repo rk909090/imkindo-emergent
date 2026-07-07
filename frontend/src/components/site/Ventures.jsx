@@ -275,7 +275,7 @@ function VentureGlyph({ accent }) {
             >
                 <svg
                     viewBox="0 0 400 300"
-                    className="absolute inset-0 w-full h-full"
+                    className="venture-glyph-svg absolute inset-0 w-full h-full"
                 >
                     {/* concentric arcs — "voice waves" */}
                     {[40, 80, 120, 160, 200, 240].map((r, i) => (
@@ -338,7 +338,7 @@ function VentureGlyph({ accent }) {
         >
             <svg
                 viewBox="0 0 400 300"
-                className="absolute inset-0 w-full h-full"
+                className="venture-glyph-svg absolute inset-0 w-full h-full"
             >
                 {/* grid of squares — property tiles */}
                 {Array.from({ length: 6 }).map((_, i) =>
@@ -388,7 +388,7 @@ function PlaceholderGlyph() {
         >
             <svg
                 viewBox="0 0 400 300"
-                className="absolute inset-0 w-full h-full"
+                className="venture-glyph-svg absolute inset-0 w-full h-full"
             >
                 {/* faint scan grid */}
                 {Array.from({ length: 6 }).map((_, i) => (
