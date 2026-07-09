@@ -1,16 +1,19 @@
-from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks
+from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks, Request
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import ssl
+import time
 import smtplib
 import logging
+from collections import deque
+from threading import Lock
 from email.message import EmailMessage
 from email.utils import formataddr, make_msgid
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional
+from typing import List, Optional, Deque, Dict
 import uuid
 from datetime import datetime, timezone
 
@@ -60,6 +63,9 @@ class EnquiryCreate(BaseModel):
     interested_in: str = Field(..., max_length=200)
     organisation_type: str = Field(..., max_length=200)
     message: str = Field(..., min_length=1, max_length=5000)
+    # Honeypot — hidden in the UI, never visible to humans. If any bot fills it in,
+    # we silently accept the request without persisting or emailing.
+    website: Optional[str] = Field(default="", max_length=500)
 
 
 class Enquiry(BaseModel):
@@ -90,6 +96,35 @@ VENTURE_OPPORTUNITY_INTERESTS = {
 
 def _is_venture_opportunity(interested_in: str) -> bool:
     return (interested_in or "").strip() in VENTURE_OPPORTUNITY_INTERESTS
+
+
+# ---------- Rate limiting (in-memory sliding window) ----------
+# Single-process uvicorn worker, so an in-memory bucket is sufficient. If we ever
+# scale to multiple workers this should move to Redis.
+RATE_LIMIT_MAX = 5           # max submissions
+RATE_LIMIT_WINDOW = 60.0     # per 60 seconds
+_rate_bucket: Dict[str, Deque[float]] = {}
+_rate_lock = Lock()
+
+
+def _client_ip(request: Request) -> str:
+    """Best-effort real client IP (respects the Kubernetes ingress X-Forwarded-For)."""
+    xff = request.headers.get("x-forwarded-for", "")
+    if xff:
+        return xff.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def _rate_limit_ok(ip: str) -> bool:
+    now = time.monotonic()
+    with _rate_lock:
+        dq = _rate_bucket.setdefault(ip, deque())
+        while dq and now - dq[0] > RATE_LIMIT_WINDOW:
+            dq.popleft()
+        if len(dq) >= RATE_LIMIT_MAX:
+            return False
+        dq.append(now)
+        return True
 
 
 # ---------- Email (SMTP) ----------
@@ -206,9 +241,32 @@ async def get_status_checks():
 
 
 @api_router.post("/enquiries", response_model=Enquiry, status_code=201)
-async def create_enquiry(payload: EnquiryCreate, background_tasks: BackgroundTasks):
+async def create_enquiry(
+    payload: EnquiryCreate,
+    background_tasks: BackgroundTasks,
+    request: Request,
+):
+    ip = _client_ip(request)
+
+    # 1. Honeypot — bots fill every field, humans never see this one.
+    #    Silently return a plausible-looking 201 without persisting or emailing.
+    if (payload.website or "").strip():
+        logger.warning("Honeypot triggered from %s (name=%r)", ip, payload.name)
+        return Enquiry(
+            **payload.model_dump(exclude={"website"}),
+            potential_venture_opportunity=False,
+        )
+
+    # 2. Per-IP rate limit — 5 real submissions per minute.
+    if not _rate_limit_ok(ip):
+        logger.warning("Rate limit hit for %s", ip)
+        raise HTTPException(
+            status_code=429,
+            detail="Too many requests. Please try again in a minute.",
+        )
+
     enquiry = Enquiry(
-        **payload.model_dump(),
+        **payload.model_dump(exclude={"website"}),
         potential_venture_opportunity=_is_venture_opportunity(payload.interested_in),
     )
     doc = enquiry.model_dump()

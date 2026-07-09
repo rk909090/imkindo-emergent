@@ -45,6 +45,7 @@ const initialForm = {
     interested_in: "",
     organisation_type: "",
     message: "",
+    website: "", // honeypot — must remain empty for real users
 };
 
 export default function Contact() {
@@ -139,6 +140,32 @@ export default function Contact() {
                                 data-testid="enquiry-form"
                                 noValidate
                             >
+                                {/* Honeypot — hidden from humans and screen readers,
+                                    but bots will fill it. Server silently drops any
+                                    submission where this field is non-empty. */}
+                                <div
+                                    aria-hidden="true"
+                                    style={{
+                                        position: "absolute",
+                                        left: "-10000px",
+                                        top: "auto",
+                                        width: "1px",
+                                        height: "1px",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <label>
+                                        Website (leave blank)
+                                        <input
+                                            type="text"
+                                            name="website"
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                            value={form.website}
+                                            onChange={set("website")}
+                                        />
+                                    </label>
+                                </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                                     <Field label="Name *" required>
                                         <input
