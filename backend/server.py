@@ -1,9 +1,13 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import ssl
+import smtplib
 import logging
+from email.message import EmailMessage
+from email.utils import formataddr, make_msgid
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
@@ -88,6 +92,95 @@ def _is_venture_opportunity(interested_in: str) -> bool:
     return (interested_in or "").strip() in VENTURE_OPPORTUNITY_INTERESTS
 
 
+# ---------- Email (SMTP) ----------
+SMTP_HOST = os.environ.get("SMTP_HOST", "")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "465") or 465)
+SMTP_USER = os.environ.get("SMTP_USER", "")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
+SMTP_FROM_NAME = os.environ.get("SMTP_FROM_NAME", "Imkindo")
+ENQUIRY_NOTIFY_TO = os.environ.get("ENQUIRY_NOTIFY_TO", SMTP_USER)
+
+
+def _send_email(to_addr: str, subject: str, body: str, reply_to: Optional[str] = None) -> None:
+    """Send a plain-text email via Hostinger SMTP (SSL). Synchronous — must be called
+    from a BackgroundTask so it does not block the API response."""
+    if not (SMTP_HOST and SMTP_USER and SMTP_PASSWORD and to_addr):
+        logger.warning("SMTP not configured — skipping email to %s", to_addr)
+        return
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = formataddr((SMTP_FROM_NAME, SMTP_USER))
+    msg["To"] = to_addr
+    if reply_to:
+        msg["Reply-To"] = reply_to
+    msg["Message-ID"] = make_msgid(domain="imkindo.com")
+    msg.set_content(body)
+
+    context = ssl.create_default_context()
+    try:
+        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=context, timeout=20) as server:
+            server.login(SMTP_USER, SMTP_PASSWORD)
+            server.send_message(msg)
+        logger.info("Email sent to %s (subject=%s)", to_addr, subject)
+    except Exception:
+        logger.exception("Failed to send email to %s", to_addr)
+
+
+def _send_enquiry_emails(enquiry: "Enquiry") -> None:
+    """Send both the internal notification and the visitor auto-reply."""
+    submitted_str = enquiry.submitted_at.strftime("%Y-%m-%d %H:%M:%S UTC") \
+        if isinstance(enquiry.submitted_at, datetime) else str(enquiry.submitted_at)
+
+    # 1. Internal notification
+    internal_subject = f"New Imkindo Enquiry: {enquiry.interested_in}"
+    internal_body = (
+        "New enquiry received via imkindo.com\n\n"
+        f"Name:                  {enquiry.name}\n"
+        f"Company:               {enquiry.company or '-'}\n"
+        f"Position:              {enquiry.position or '-'}\n"
+        f"Email:                 {enquiry.email}\n"
+        f"Phone:                 {enquiry.phone or '-'}\n"
+        f"Country:               {enquiry.country or '-'}\n\n"
+        f"Interested In:         {enquiry.interested_in}\n"
+        f"Organisation Type:     {enquiry.organisation_type}\n\n"
+        f"Potential Venture Opportunity: {enquiry.potential_venture_opportunity}   <-- INTERNAL FLAG\n\n"
+        "Message:\n"
+        f"{enquiry.message}\n\n"
+        f"Submitted: {submitted_str}\n"
+        f"Record ID: {enquiry.id}\n"
+    )
+    _send_email(
+        to_addr=ENQUIRY_NOTIFY_TO,
+        subject=internal_subject,
+        body=internal_body,
+        reply_to=enquiry.email,
+    )
+
+    # 2. Visitor auto-confirmation
+    visitor_subject = "Thanks for connecting with Imkindo"
+    visitor_body = (
+        "Thank you for reaching out to Imkindo.\n\n"
+        "We believe the greatest opportunities with artificial intelligence come\n"
+        "from combining new technology with real-world experience, industry\n"
+        "knowledge and clear commercial objectives.\n\n"
+        "Your message has been received and will be personally reviewed.\n\n"
+        "If there is an opportunity where we believe Imkindo can add value,\n"
+        "we'll be in touch to continue the conversation.\n\n"
+        "Best regards,\n\n"
+        "Mark Trounce\n"
+        "Founder\n"
+        "Imkindo\n\n"
+        "Human insight. Artificial intelligence. Commercial impact.\n"
+    )
+    _send_email(
+        to_addr=enquiry.email,
+        subject=visitor_subject,
+        body=visitor_body,
+        reply_to=SMTP_USER,
+    )
+
+
 # ---------- Routes ----------
 @api_router.get("/")
 async def root():
@@ -113,7 +206,7 @@ async def get_status_checks():
 
 
 @api_router.post("/enquiries", response_model=Enquiry, status_code=201)
-async def create_enquiry(payload: EnquiryCreate):
+async def create_enquiry(payload: EnquiryCreate, background_tasks: BackgroundTasks):
     enquiry = Enquiry(
         **payload.model_dump(),
         potential_venture_opportunity=_is_venture_opportunity(payload.interested_in),
@@ -125,6 +218,11 @@ async def create_enquiry(payload: EnquiryCreate):
     except Exception as exc:
         logger.exception("Failed to persist enquiry")
         raise HTTPException(status_code=500, detail="Unable to save enquiry") from exc
+
+    # Fire-and-forget email delivery (does not block the API response;
+    # DB record is the source of truth if SMTP fails).
+    background_tasks.add_task(_send_enquiry_emails, enquiry)
+
     return enquiry
 
 

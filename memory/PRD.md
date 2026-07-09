@@ -41,10 +41,13 @@ Build a premium one-page website for Imkindo (imkindo.com) — an Applied Intell
 - ✅ Backend endpoints: `POST /api/enquiries`, `GET /api/enquiries`
 - ✅ SEO: page title, description, OG tags, preconnect for fonts
 - ✅ Testing agent: 100% pass on both backend (7 pytest cases) and frontend (all flows)
+- ✅ **Contact form email delivery (2026-07)** — Hostinger SMTP (smtp.hostinger.com:465 SSL) sends: (1) internal notification to `mark@imkindo.com` on every submission and (2) auto-confirmation reply to the visitor. Delivery runs as a FastAPI BackgroundTask (non-blocking; DB is source of truth if SMTP fails).
+- ✅ **Public contact email changed** from `connect@imkindo.com` → `mark@imkindo.com` (Contact + Footer).
 
 ## P0 Backlog (next)
 - Real Imkindo `imk.` logo asset (user to upload; will replace code recreation)
-- Email delivery to mark@imkindo.com (Resend or SendGrid) + visitor confirmation email
+- Pre-deployment hardening: auth on `GET /api/enquiries`, CORS lockdown to imkindo.com, 15s axios timeout on form submit
+- Retry production deployment on Emergent + guide user through Entri DNS mapping (www.imkindo.com currently on Hostinger)
 - Password-protected `/admin` page listing enquiries (filter, CSV export)
 
 ## P1 Backlog
