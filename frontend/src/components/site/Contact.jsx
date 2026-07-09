@@ -12,6 +12,9 @@ import { ArrowUpRight, Check } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+// Production (Hostinger) sets REACT_APP_ENQUIRY_ENDPOINT="/enquiry.php" so the form
+// POSTs to a same-origin PHP handler. Preview keeps using the FastAPI backend below.
+const ENQUIRY_ENDPOINT = process.env.REACT_APP_ENQUIRY_ENDPOINT || `${API}/enquiries`;
 
 const INTERESTED_IN = [
     "Investing in Imkindo / AI Ventures",
@@ -64,7 +67,7 @@ export default function Contact() {
         }
         setSubmitting(true);
         try {
-            await axios.post(`${API}/enquiries`, form);
+            await axios.post(ENQUIRY_ENDPOINT, form, { timeout: 15000 });
             setSubmitted(true);
             setForm(initialForm);
             toast.success("Enquiry received. We'll be in touch.");

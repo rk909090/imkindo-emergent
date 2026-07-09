@@ -44,6 +44,7 @@ Build a premium one-page website for Imkindo (imkindo.com) — an Applied Intell
 - ✅ **Contact form email delivery (2026-07)** — Hostinger SMTP (smtp.hostinger.com:465 SSL) sends: (1) internal notification to `mark@imkindo.com` on every submission and (2) auto-confirmation reply to the visitor. Delivery runs as a FastAPI BackgroundTask (non-blocking; DB is source of truth if SMTP fails).
 - ✅ **Public contact email changed** from `connect@imkindo.com` → `mark@imkindo.com` (Contact + Footer).
 - ✅ **Anti-spam hardening (2026-07)** — hidden honeypot field (`website`) silently drops bot submissions; per-IP sliding-window rate limit (5/min) returns 429 on abuse. Both verified end-to-end.
+- ✅ **Hostinger PHP endpoint (2026-07)** — `frontend/public/enquiry.php` (PHPMailer 6.9.3) is a same-origin form handler for the Hostinger Cloud Professional deploy. Full parity with the FastAPI backend: honeypot, rate-limit (file-based), venture-opportunity flag, both emails. Frontend now uses `REACT_APP_ENQUIRY_ENDPOINT` (defaults to FastAPI backend). See `/app/HOSTINGER_DEPLOY.md` for setup steps.
 
 ## P0 Backlog (next)
 - Real Imkindo `imk.` logo asset (user to upload; will replace code recreation)
