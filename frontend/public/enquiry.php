@@ -19,12 +19,38 @@ declare(strict_types=1);
 /* ------------------------------------------------------------------ */
 /* Config — SMTP credentials for mark@imkindo.com on Hostinger        */
 /* ------------------------------------------------------------------ */
-const SMTP_HOST         = 'smtp.hostinger.com';
-const SMTP_PORT         = 465;
-const SMTP_USER         = 'mark@imkindo.com';
-const SMTP_PASSWORD     = '#1000LeadsEveryday@2026';
-const SMTP_FROM_NAME    = 'Imkindo';
-const ENQUIRY_NOTIFY_TO = 'mark@imkindo.com';
+/*
+ * PRODUCTION (Hostinger, recommended):
+ *   Upload `imkindo-config.php` to `~/domains/imkindo.com/` (one level
+ *   ABOVE `public_html/`) — that folder is never served over HTTP.
+ *   See /app/HOSTINGER_DEPLOY.md for the exact template + steps.
+ *
+ * FALLBACK (local dev only):
+ *   The hardcoded constants below are used if no config file is found.
+ *   Never commit real production credentials here.
+ */
+$__imk_cfg_candidates = [];
+if (!empty($_SERVER['DOCUMENT_ROOT'])) {
+    $__imk_cfg_candidates[] = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/../imkindo-config.php';
+}
+$__imk_cfg_candidates[] = __DIR__ . '/../imkindo-config.php';
+
+$__imk_cfg = [];
+foreach ($__imk_cfg_candidates as $__p) {
+    if (is_readable($__p)) {
+        /** @var array $__imk_cfg */
+        $__imk_cfg = require $__p;
+        if (!is_array($__imk_cfg)) { $__imk_cfg = []; }
+        break;
+    }
+}
+
+define('SMTP_HOST',         $__imk_cfg['smtp_host']       ?? 'smtp.hostinger.com');
+define('SMTP_PORT',         (int) ($__imk_cfg['smtp_port'] ?? 465));
+define('SMTP_USER',         $__imk_cfg['smtp_user']       ?? '');
+define('SMTP_PASSWORD',     $__imk_cfg['smtp_password']   ?? '');
+define('SMTP_FROM_NAME',    $__imk_cfg['from_name']       ?? 'Imkindo');
+define('ENQUIRY_NOTIFY_TO', $__imk_cfg['notify_to']       ?? '');
 
 /* Interest categories that suggest an alignment with an in-development Imkindo venture. */
 const VENTURE_OPPORTUNITY_INTERESTS = [

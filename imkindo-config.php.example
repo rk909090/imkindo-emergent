@@ -1,0 +1,19 @@
+<?php
+/**
+ * Imkindo — private SMTP config for enquiry.php
+ *
+ * DO NOT place this file inside `public_html/` — it must live ONE LEVEL ABOVE
+ * (e.g. `~/domains/imkindo.com/imkindo-config.php`) so it is never reachable
+ * over HTTP.
+ *
+ * enquiry.php reads it automatically at request time.
+ */
+
+return [
+    'smtp_host'     => 'smtp.hostinger.com',
+    'smtp_port'     => 465,
+    'smtp_user'     => 'mark@imkindo.com',
+    'smtp_password' => '#1000LeadsEveryday@2026',
+    'from_name'     => 'Imkindo',
+    'notify_to'     => 'mark@imkindo.com',
+];

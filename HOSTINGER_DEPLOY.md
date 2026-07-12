@@ -37,10 +37,27 @@ URL used in the Emergent preview environment (which is what you want for local d
 
 ## SMTP credentials
 
-Currently hardcoded inside `enquiry.php` (SMTP_HOST, SMTP_USER, SMTP_PASSWORD,
-ENQUIRY_NOTIFY_TO). This is safe because Apache/Nginx never serves `.php` files as
-source — only the executed output. To rotate the password, edit the constants at
-the top of `enquiry.php` and redeploy.
+SMTP credentials are **not** hardcoded in the deployed `enquiry.php` file. They live in
+a private config file **one level above `public_html/`**, which Apache never serves
+over HTTP.
+
+### One-time upload (do this after the first deploy)
+
+1. Copy `/app/imkindo-config.php.example` (in this repo) locally.
+2. Rename to `imkindo-config.php`.
+3. Using Hostinger File Manager or SFTP, upload it to:
+   ```
+   ~/domains/imkindo.com/imkindo-config.php
+   ```
+   That is the parent folder of `public_html/`. **Do not** place it inside
+   `public_html/`.
+4. Verify permissions are `600` or `640` (owner-readable only) — Hostinger's File
+   Manager usually sets sane defaults automatically.
+
+If the config file is missing, `enquiry.php` will return `502 Unable to send enquiry`
+and log a clear "Email FAILED" line — so you'll know immediately.
+
+To rotate the password, edit `imkindo-config.php` on the server. No redeploy needed.
 
 ## Behaviour parity with the Python backend
 

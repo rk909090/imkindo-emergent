@@ -25,6 +25,7 @@ export default function NetworkCanvas() {
         let h = 0;
         let nodes = [];
         let redNode = null;
+        let region = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
         let redNodeBounds = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
         let mouse = { x: -9999, y: -9999 };
         const LINK_DIST = 140;
@@ -39,31 +40,47 @@ export default function NetworkCanvas() {
             canvas.height = h * DPR;
             ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-            const density = Math.min(90, Math.floor((w * h) / 14000));
+            // The animation should only live in the top-right quadrant of the
+            // hero — to the right of the headline text and above the stats row.
+            // On stacked/mobile layouts (< 768px) there is no "right column",
+            // so we fall back to the full canvas.
+            const isNarrow = w < 768;
+            region = isNarrow
+                ? { xMin: 0, xMax: w, yMin: 0, yMax: h }
+                : {
+                      xMin: w * 0.5,
+                      xMax: w * 0.98,
+                      yMin: h * 0.05,
+                      yMax: h * 0.72,
+                  };
+            const regionW = region.xMax - region.xMin;
+            const regionH = region.yMax - region.yMin;
+
+            const density = Math.min(70, Math.floor((regionW * regionH) / 14000));
             nodes = new Array(density).fill(0).map(() => ({
-                x: rand(0, w),
-                y: rand(0, h),
+                x: rand(region.xMin, region.xMax),
+                y: rand(region.yMin, region.yMax),
                 vx: rand(-0.15, 0.15),
                 vy: rand(-0.15, 0.15),
                 r: rand(0.6, 1.4),
             }));
 
+            // Red intelligence node roams inside the region, kept a little
+            // away from the edges so its glow never gets clipped.
+            const pad = 32;
+            redNodeBounds = {
+                xMin: region.xMin + pad,
+                xMax: region.xMax - pad,
+                yMin: region.yMin + pad,
+                yMax: region.yMax - pad,
+            };
             redNode = {
-                x: w * 0.78,
-                y: h * 0.42,
+                x: region.xMin + regionW * 0.55,
+                y: region.yMin + regionH * 0.55,
                 vx: rand(-0.05, 0.05),
                 vy: rand(-0.05, 0.05),
                 r: 3.2,
                 phase: 0,
-            };
-            // Bounds for the red intelligence node — keep it on the RIGHT
-            // side of the hero so it never overlaps the headline / body copy
-            // sitting in the left column.
-            redNodeBounds = {
-                xMin: w * 0.58,
-                xMax: w * 0.92,
-                yMin: h * 0.15,
-                yMax: h * 0.78,
             };
         };
 
@@ -75,8 +92,14 @@ export default function NetworkCanvas() {
                 const n = nodes[i];
                 n.x += n.vx;
                 n.y += n.vy;
-                if (n.x < 0 || n.x > w) n.vx *= -1;
-                if (n.y < 0 || n.y > h) n.vy *= -1;
+                if (n.x < region.xMin || n.x > region.xMax) {
+                    n.vx *= -1;
+                    n.x = Math.min(Math.max(n.x, region.xMin), region.xMax);
+                }
+                if (n.y < region.yMin || n.y > region.yMax) {
+                    n.vy *= -1;
+                    n.y = Math.min(Math.max(n.y, region.yMin), region.yMax);
+                }
 
                 // subtle mouse repulsion
                 const mdx = n.x - mouse.x;
