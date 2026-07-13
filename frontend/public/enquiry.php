@@ -20,20 +20,22 @@ declare(strict_types=1);
 /* Config — SMTP credentials for mark@imkindo.com on Hostinger        */
 /* ------------------------------------------------------------------ */
 /*
- * PRODUCTION (Hostinger, recommended):
- *   Upload `imkindo-config.php` to `~/domains/imkindo.com/` (one level
- *   ABOVE `public_html/`) — that folder is never served over HTTP.
+ * PRODUCTION (Hostinger):
+ *   Upload `imkindo-config.php` inside `public_html/` (same folder as this
+ *   `enquiry.php`). The config file has its own `die()` guard AND the
+ *   `.htaccess` next to this file blocks direct HTTP access — two layers.
  *   See /app/HOSTINGER_DEPLOY.md for the exact template + steps.
  *
  * FALLBACK (local dev only):
- *   The hardcoded constants below are used if no config file is found.
- *   Never commit real production credentials here.
+ *   If no config file is found, SMTP creds are empty and the request will
+ *   fail loudly with a 502 (no silent fallback to hardcoded secrets).
  */
-$__imk_cfg_candidates = [];
-if (!empty($_SERVER['DOCUMENT_ROOT'])) {
-    $__imk_cfg_candidates[] = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/../imkindo-config.php';
-}
-$__imk_cfg_candidates[] = __DIR__ . '/../imkindo-config.php';
+define('IMK_INTERNAL', true);
+
+$__imk_cfg_candidates = [
+    __DIR__ . '/imkindo-config.php',            // production: same folder as enquiry.php
+    __DIR__ . '/../imkindo-config.php',         // fallback: one level above (local dev)
+];
 
 $__imk_cfg = [];
 foreach ($__imk_cfg_candidates as $__p) {

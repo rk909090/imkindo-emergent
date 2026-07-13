@@ -1,0 +1,13 @@
+# Deny direct HTTP access to the private SMTP credentials file.
+# Belt-and-braces: the file also has its own PHP guard.
+<Files "imkindo-config.php">
+    # Apache 2.4+
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    # Apache 2.2 fallback
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</Files>

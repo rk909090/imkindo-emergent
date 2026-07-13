@@ -2,12 +2,21 @@
 /**
  * Imkindo — private SMTP config for enquiry.php
  *
- * DO NOT place this file inside `public_html/` — it must live ONE LEVEL ABOVE
- * (e.g. `~/domains/imkindo.com/imkindo-config.php`) so it is never reachable
- * over HTTP.
+ * Deployed alongside enquiry.php inside `public_html/`.
+ * Protected by TWO layers:
+ *   1. The `IMK_INTERNAL` guard below — direct HTTP requests are terminated
+ *      with a 403 before credentials are ever accessed.
+ *   2. `.htaccess` (shipped next to enquiry.php) issues a hard `403 Forbidden`
+ *      before PHP even runs.
  *
- * enquiry.php reads it automatically at request time.
+ * Never commit this file with real credentials — .gitignore keeps it out
+ * of the repo. The `.example` template lives at /app/imkindo-config.php.example.
  */
+
+if (!defined('IMK_INTERNAL')) {
+    http_response_code(403);
+    exit('Forbidden');
+}
 
 return [
     'smtp_host'     => 'smtp.hostinger.com',
