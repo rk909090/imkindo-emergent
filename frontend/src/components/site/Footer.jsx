@@ -33,14 +33,36 @@ export default function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="https://www.nowmoveme.co.uk/uk"
+                                    href="https://www.nowdealsheet.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-white hover:text-[#e60000] transition-colors text-sm"
-                                    data-testid="footer-nowmoveme-link"
+                                    data-testid="footer-nowdealsheet-link"
                                 >
-                                    NowMoveMe™
+                                    NowDealSheet™
                                 </a>
+                            </li>
+                            <li>
+                                <span
+                                    className="text-neutral-500 text-sm"
+                                    data-testid="footer-nowmoveme-label"
+                                >
+                                    NowMoveMe
+                                    <span className="ml-2 text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-600">
+                                        In Dev
+                                    </span>
+                                </span>
+                            </li>
+                            <li>
+                                <span
+                                    className="text-neutral-500 text-sm"
+                                    data-testid="footer-nowinspect-label"
+                                >
+                                    NowInspect
+                                    <span className="ml-2 text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-600">
+                                        In Dev
+                                    </span>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -69,7 +91,7 @@ export default function Footer() {
                         reserved.
                     </span>
                     <span className="font-mono">
-                        Applied Intelligence · NowAgentAI™ · NowMoveMe™
+                        Applied Intelligence · NowAgentAI™ · NowDealSheet™
                     </span>
                 </div>
             </div>

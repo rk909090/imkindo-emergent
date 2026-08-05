@@ -94,7 +94,7 @@ export default function Hero() {
                                 02
                             </span>
                             <span className="text-xs text-neutral-500 leading-relaxed">
-                                NowAgentAI™ · NowMoveMe™
+                                NowAgentAI™ · NowDealSheet™
                             </span>
                         </div>
                         <div className="hidden lg:flex flex-col gap-2 max-w-[260px]">

@@ -11,20 +11,42 @@ const VENTURES = [
         tags: ["Customer Conversations", "Lead Recovery", "Intelligent Follow-up", "Revenue Opportunities"],
         cta: "Visit NowAgentAI",
         href: "https://www.nowagentai.com",
-        accent: "top",
+        accent: "waves",
         role: "Customer AI",
     },
     {
         num: "V/02",
-        name: "NowMoveMe",
+        name: "NowDealSheet",
         trademark: "™",
-        tagline: "Intelligent property discovery designed to help people move with confidence by understanding what really matters.",
-        body: "Better decisions through AI-powered matching — confidence, not endless searching.",
-        tags: ["Better Decisions", "Customer Intent", "AI-powered Matching", "Confidence"],
-        cta: "Visit NowMoveMe",
-        href: "https://www.nowmoveme.co.uk/uk",
-        accent: "bottom",
-        role: "Property AI",
+        tagline: "Private introductions in off-market commercial real estate — verified sellers, verified buyers, NDA-gated.",
+        body: "Anonymised deals, human-reviewed listings, AI-assisted drafting. Introducer only — never in the trade, no success fees, no client funds.",
+        tags: ["Off-Market CRE", "NDA-Gated", "AI-Assisted", "Human-Reviewed"],
+        cta: "Visit NowDealSheet",
+        href: "https://www.nowdealsheet.com",
+        accent: "board",
+        role: "CRE Platform",
+    },
+];
+
+// In-development ventures — muted styling, no external CTA.
+const IN_DEVELOPMENT = [
+    {
+        num: "V/03",
+        name: "NowMoveMe",
+        subtitle: "In Development",
+        description:
+            "Intelligent property discovery designed to help people move with confidence by understanding what really matters — better decisions through AI-powered matching, not endless searching.",
+        tags: ["Better Decisions", "Customer Intent", "AI-powered Matching"],
+        note: null,
+    },
+    {
+        num: "V/04",
+        name: "NowInspect",
+        subtitle: "In Development",
+        description:
+            "An AI property inspection application — bringing applied intelligence to residential and commercial property surveys, so decisions are grounded in clearer, faster, more consistent data.",
+        tags: ["Property Inspection", "AI Surveys", "Applied AI"],
+        note: "Website to follow",
     },
 ];
 
@@ -51,7 +73,7 @@ export default function Ventures() {
                     <p className="max-w-md text-neutral-400 text-[15px] leading-relaxed">
                         Imkindo identifies opportunities, creates AI-powered
                         ventures and builds solutions around real commercial
-                        challenges. These are our current live ventures.
+                        challenges. Two currently live, more in development.
                     </p>
                 </div>
 
@@ -230,52 +252,62 @@ export default function Ventures() {
                         </article>
                     ))}
 
-                    {/* Venture 03 · In Development — subtle, no product name / no promises */}
-                    <article
-                        className="reveal imk-muted"
-                        data-testid="venture-in-development"
-                    >
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-                            <div className="lg:col-span-5">
-                                <PlaceholderGlyph />
-                            </div>
-
-                            <div className="lg:col-span-7">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <span className="venture-index">V/03</span>
-                                    <span className="h-px flex-1 bg-white/10" />
+                    {/* Ventures in development — muted, no external CTA */}
+                    {IN_DEVELOPMENT.map((v) => (
+                        <article
+                            key={v.name}
+                            className="reveal imk-muted"
+                            data-testid={`venture-${v.name.toLowerCase()}`}
+                        >
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                                <div className="lg:col-span-5">
+                                    <PlaceholderGlyph />
                                 </div>
 
-                                <h3 className="font-display text-5xl lg:text-7xl font-bold text-neutral-500 tracking-tight leading-none">
-                                    Venture 03
-                                </h3>
-                                <div className="mt-3 overline text-neutral-500">
-                                    In Development
-                                </div>
+                                <div className="lg:col-span-7">
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <span className="venture-index">
+                                            {v.num}
+                                        </span>
+                                        <span className="h-px flex-1 bg-white/10" />
+                                    </div>
 
-                                <p className="mt-6 text-neutral-300 text-lg lg:text-xl font-light max-w-xl leading-snug">
-                                    Exploring new applied intelligence
-                                    opportunities where human experience and
-                                    AI can solve meaningful business
-                                    challenges.
-                                </p>
+                                    <h3 className="font-display text-5xl lg:text-7xl font-bold text-neutral-500 tracking-tight leading-none">
+                                        {v.name}
+                                    </h3>
+                                    <div className="mt-3 overline text-neutral-500">
+                                        {v.subtitle}
+                                    </div>
 
-                                <div className="mt-8 flex flex-wrap gap-2">
-                                    {["Enterprise", "Industry Solutions", "Applied AI"].map(
-                                        (t) => (
+                                    <p className="mt-6 text-neutral-300 text-lg lg:text-xl font-light max-w-xl leading-snug">
+                                        {v.description}
+                                    </p>
+
+                                    <div className="mt-8 flex flex-wrap gap-2">
+                                        {v.tags.map((t) => (
                                             <span
                                                 key={t}
                                                 className="venture-tag opacity-80"
-                                                data-testid={`venture-tag-in-development-${t.toLowerCase().replace(/\s+/g, "-")}`}
+                                                data-testid={`venture-tag-${v.name.toLowerCase()}-${t.toLowerCase().replace(/\s+/g, "-")}`}
                                             >
                                                 {t}
                                             </span>
-                                        )
+                                        ))}
+                                    </div>
+
+                                    {v.note && (
+                                        <div
+                                            className="mt-8 inline-flex items-center gap-3 text-neutral-500 text-[11px] font-mono uppercase tracking-[0.22em]"
+                                            data-testid={`venture-${v.name.toLowerCase()}-note`}
+                                        >
+                                            <span className="h-px w-6 bg-white/15" aria-hidden="true" />
+                                            {v.note}
+                                        </div>
                                     )}
                                 </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    ))}
                 </div>
             </div>
         </section>
@@ -284,7 +316,9 @@ export default function Ventures() {
 
 function VentureGlyph({ accent }) {
     // Geometric abstract SVG unique to each venture
-    if (accent === "top") {
+
+    // NowAgentAI — concentric voice waves + agent hub
+    if (accent === "waves") {
         return (
             <div
                 className="relative aspect-[4/3] w-full bg-[#0a0a0a] border border-white/10 overflow-hidden"
@@ -295,7 +329,7 @@ function VentureGlyph({ accent }) {
                     className="venture-glyph-svg absolute inset-0 w-full h-full"
                 >
                     {/* concentric arcs — "voice waves" */}
-                    {[40, 80, 120, 160, 200, 240].map((r, i) => (
+                    {[40, 80, 120, 160, 200, 240].map((r) => (
                         <circle
                             key={r}
                             cx="120"
@@ -327,20 +361,10 @@ function VentureGlyph({ accent }) {
                             stroke="rgba(255,255,255,0.06)"
                         />
                     ))}
-                    <line
-                        x1="120"
-                        y1="150"
-                        x2="380"
-                        y2="90"
-                        stroke="rgba(230,0,0,0.5)"
-                    />
-                    <line
-                        x1="120"
-                        y1="150"
-                        x2="380"
-                        y2="210"
-                        stroke="rgba(230,0,0,0.3)"
-                    />
+                    <line x1="120" y1="150" x2="380" y2="90"
+                        stroke="rgba(230,0,0,0.5)" />
+                    <line x1="120" y1="150" x2="380" y2="210"
+                        stroke="rgba(230,0,0,0.3)" />
                 </svg>
                 <div className="absolute bottom-4 left-4 overline">
                     Voice · Agent · Data
@@ -348,51 +372,101 @@ function VentureGlyph({ accent }) {
             </div>
         );
     }
-    return (
-        <div
-            className="relative aspect-[4/3] w-full bg-[#0a0a0a] border border-white/10 overflow-hidden"
-            aria-hidden="true"
-        >
-            <svg
-                viewBox="0 0 400 300"
-                className="venture-glyph-svg absolute inset-0 w-full h-full"
+
+    // NowDealSheet — CRE deal-board: listing rows on the left,
+    // stylised city skyline on the right, one highlighted "live" row.
+    if (accent === "board") {
+        const rows = [40, 65, 90, 115, 140, 165, 190, 215, 240];
+        const highlightY = 115;
+        // City skyline heights (right cluster)
+        const buildings = [
+            { x: 250, w: 22, h: 90 },
+            { x: 275, w: 28, h: 130 },
+            { x: 306, w: 18, h: 70 },
+            { x: 327, w: 34, h: 155 },
+            { x: 364, w: 22, h: 100 },
+        ];
+        return (
+            <div
+                className="relative aspect-[4/3] w-full bg-[#0a0a0a] border border-white/10 overflow-hidden"
+                aria-hidden="true"
             >
-                {/* grid of squares — property tiles */}
-                {Array.from({ length: 6 }).map((_, i) =>
-                    Array.from({ length: 8 }).map((_, j) => (
-                        <rect
-                            key={`${i}-${j}`}
-                            x={30 + j * 45}
-                            y={30 + i * 40}
-                            width="34"
-                            height="30"
-                            fill="none"
+                <svg
+                    viewBox="0 0 400 300"
+                    className="venture-glyph-svg absolute inset-0 w-full h-full"
+                >
+                    {/* Listing rows — data-table feel */}
+                    {rows.map((y) => (
+                        <line
+                            key={y}
+                            x1="30"
+                            y1={y}
+                            x2="220"
+                            y2={y}
                             stroke="rgba(255,255,255,0.08)"
                         />
-                    ))
-                )}
-                {/* highlighted tile with red intent point */}
-                <rect
-                    x={30 + 4 * 45}
-                    y={30 + 2 * 40}
-                    width="34"
-                    height="30"
-                    fill="rgba(230,0,0,0.12)"
-                    stroke="#e60000"
-                />
-                <circle cx={30 + 4 * 45 + 17} cy={30 + 2 * 40 + 15} r="4" fill="#e60000" />
-                {/* trace path */}
-                <path
-                    d="M 60 250 Q 160 220 220 130 T 360 60"
-                    fill="none"
-                    stroke="rgba(230,0,0,0.5)"
-                    strokeWidth="1.2"
-                />
-            </svg>
-            <div className="absolute bottom-4 left-4 overline">
-                Intent · Lifestyle · Match
+                    ))}
+                    {/* Row labels — short + long "cells" */}
+                    {rows.map((y) => (
+                        <g key={`c-${y}`}>
+                            <rect x="30" y={y - 5} width="22" height="2"
+                                fill="rgba(255,255,255,0.15)" />
+                            <rect x="60" y={y - 5} width="110" height="2"
+                                fill="rgba(255,255,255,0.06)" />
+                            <rect x="180" y={y - 5} width="30" height="2"
+                                fill="rgba(255,255,255,0.10)" />
+                        </g>
+                    ))}
+                    {/* Highlighted live listing */}
+                    <rect
+                        x="26"
+                        y={highlightY - 12}
+                        width="198"
+                        height="18"
+                        fill="rgba(230,0,0,0.10)"
+                        stroke="#e60000"
+                    />
+                    <circle
+                        cx="20"
+                        cy={highlightY - 3}
+                        r="3"
+                        fill="#e60000"
+                    />
+                    {/* Divider between rows + skyline */}
+                    <line x1="235" y1="30" x2="235" y2="270"
+                        stroke="rgba(255,255,255,0.08)" />
+                    {/* Baseline for buildings */}
+                    <line x1="240" y1="245" x2="390" y2="245"
+                        stroke="rgba(255,255,255,0.14)" />
+                    {/* Skyline */}
+                    {buildings.map((b, i) => (
+                        <rect
+                            key={i}
+                            x={b.x}
+                            y={245 - b.h}
+                            width={b.w}
+                            height={b.h}
+                            fill="none"
+                            stroke="rgba(255,255,255,0.18)"
+                        />
+                    ))}
+                    {/* Signal light on tallest building */}
+                    <circle cx={327 + 34 / 2} cy={245 - 155 + 6} r="2.5"
+                        fill="#e60000" />
+                </svg>
+                <div className="absolute bottom-4 left-4 overline">
+                    Deals · NDA · Introduce
+                </div>
             </div>
-        </div>
+        );
+    }
+
+    // Fallback (defensive) — should not happen for current data set
+    return (
+        <div
+            className="relative aspect-[4/3] w-full bg-[#0a0a0a] border border-white/10"
+            aria-hidden="true"
+        />
     );
 }
 
