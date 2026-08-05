@@ -75,8 +75,13 @@ export default function Ventures() {
                         </div>
 
                         {/* horizontal branch */}
-                        <div className="grid grid-cols-3 gap-4 sm:gap-12 lg:gap-24 relative w-full max-w-4xl">
-                            <div className="absolute top-0 left-[16%] right-[16%] h-px bg-white/15" />
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-4 sm:gap-6 lg:gap-10 relative w-full max-w-4xl">
+                            {/* Desktop-only horizontal connector line spanning the 4 columns.
+                                Hidden on mobile because 2x2 stacking would leave it dangling. */}
+                            <div
+                                className="hidden sm:block absolute top-0 left-[12.5%] right-[12.5%] h-px bg-white/15"
+                                aria-hidden="true"
+                            />
                             {[
                                 {
                                     name: "NowAgentAI",
@@ -84,37 +89,49 @@ export default function Ventures() {
                                     live: true,
                                 },
                                 {
-                                    name: "NowMoveMe",
-                                    role: "Property AI",
+                                    name: "NowDealSheet",
+                                    role: "CRE Platform",
                                     live: true,
                                 },
                                 {
-                                    name: "Venture 03",
+                                    name: "NowMoveMe",
+                                    role: "In Development",
+                                    live: false,
+                                },
+                                {
+                                    name: "NowInspect",
                                     role: "In Development",
                                     live: false,
                                 },
                             ].map((v) => (
                                 <div
                                     key={v.name}
-                                    className={`flex flex-col items-center relative pt-8 ${
-                                        v.live ? "" : "opacity-45"
-                                    }`}
+                                    data-testid={`ventures-structure-item-${v.name.toLowerCase()}`}
+                                    className="flex flex-col items-center relative pt-6 sm:pt-8"
                                 >
+                                    {/* Vertical stub — desktop only (would dangle on mobile) */}
                                     <span
-                                        className={`absolute top-0 left-1/2 -translate-x-1/2 w-px h-8 ${
+                                        className={`hidden sm:block absolute top-0 left-1/2 -translate-x-1/2 w-px h-8 ${
                                             v.live
                                                 ? "bg-white/15"
                                                 : "bg-white/10 border-l border-dashed border-white/20"
                                         }`}
+                                        aria-hidden="true"
                                     />
+                                    {/* Dot — sits on the connector on desktop, sits above the name on mobile */}
                                     <span
-                                        className={`absolute top-8 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full ${
+                                        className={`absolute top-0 sm:top-8 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full ${
                                             v.live
                                                 ? "bg-[#e60000]"
                                                 : "bg-transparent border border-neutral-500"
                                         }`}
+                                        aria-hidden="true"
                                     />
-                                    <div className="font-display text-base sm:text-xl lg:text-2xl font-bold text-white tracking-tight mt-2">
+                                    <div
+                                        className={`font-display text-base sm:text-lg lg:text-2xl font-bold tracking-tight mt-3 sm:mt-2 whitespace-nowrap ${
+                                            v.live ? "text-white" : "text-neutral-500"
+                                        }`}
+                                    >
                                         {v.name}
                                         {v.live && (
                                             <span className="text-[#e60000] text-xs align-super ml-0.5">
@@ -122,7 +139,7 @@ export default function Ventures() {
                                             </span>
                                         )}
                                     </div>
-                                    <div className="mt-1 text-neutral-500 text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em]">
+                                    <div className="mt-1 text-neutral-500 text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-center">
                                         {v.role}
                                     </div>
                                 </div>
